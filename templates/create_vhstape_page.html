@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} Create VHS Tape {% endblock %}
+
+{% block content %}
+<h1>Create</h1>
+<div>
+    <h2>Введите данные</h2>
+    <form method="post">
+    <input type="text" name="name_film" id="name_film" placeholder="name"><br>
+    <input type="number" name="year" id="year" placeholder="year"><br>
+    <input type="text" name="age_rating" id="age_rating" placeholder="age_rating"><br>
+    <input type="number" name="count" id="count" placeholder="count"><br>
+    <input type="submit" value="отправить">
+    </form>
+</div>
+{% endblock %}
