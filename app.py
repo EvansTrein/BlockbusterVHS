@@ -90,6 +90,7 @@ def delete_vhstape(id):
 
     try:
         db.session.delete(vhs)
+        db.session.flush()  # Update id values
         db.session.commit()
         return redirect("/all_vhstapes")
     except:
@@ -101,7 +102,7 @@ def clear_database():
     db.session.query(VhsTape).delete()
     db.session.commit()
 
-    return "База данных очищена"
+    return "The database has been cleared"
 
 
 if __name__ == "__main__":
