@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, flash
 from config import app, db
 from models import VhsTape
 
@@ -65,18 +65,18 @@ def update_vhstape(id):
         age_rating = request.form["age_rating"]
         count = request.form["count"]
 
-        if name_film:
+        if all((name_film, year, age_rating, count)):
             vhs.name_film = name_film
-        if year:
             vhs.year = year
-        if age_rating:
             vhs.age_rating = age_rating
-        if count:
             vhs.count = count
+        else:
+            flash('fields cannot be empty')
+            return redirect(f"/vhs/{id}/update")
 
         try:
             db.session.commit()
-            return redirect(url_for("vhs", id=id))
+            return redirect(f"/vhs/{id}")
         except Exception as err:
             return f"failed to update:/n {str(err)}"
 
