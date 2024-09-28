@@ -1,13 +1,9 @@
-from dataclasses import dataclass
+from config import db
 
 
-
-@dataclass
-class VhsTape:
-    id: int
-    name_film: str
-    year: int
-    age_rating: str
-    count: int
-
-
+class VhsTape(db.Model):
+    id_num = db.Column(db.Integer, primary_key=True)
+    name_film = db.Column(db.String(100), nullable=False)
+    year = db.Column(db.Integer, nullable=False)
+    age_rating = db.Column(db.String(3), nullable=False)
+    count = db.Column(db.Integer, nullable=False)
