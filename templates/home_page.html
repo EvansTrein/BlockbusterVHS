@@ -6,14 +6,4 @@
 <h1>Home Page</h1>
 <button onclick="confirmClearDatabase()">Clear the database</button>
 
-
-
-<script>
-function confirmClearDatabase() {
-    if (confirm("Are you sure you want to clean up the database?")) {
-        // отправляем запрос на очистку базы данных
-        fetch('/clear_database', { method: 'POST' });
-    }
-}
-</script>
 {% endblock %}

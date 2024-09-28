@@ -2,3 +2,9 @@ body {
     background-color: #a59f9f;
     font-family: 'Source Sans Pro', sans-serif;
 }
+
+.flash-error {
+    padding: 10px;
+    font-size: 20px;
+    color: rgb(134, 10, 10);
+}

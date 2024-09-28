@@ -10,6 +10,7 @@
     <p>age rating: {{ vhs.age_rating }}</p>
     <p>count: {{ vhs.count }}</p>
     <a href="/vhs/{{ vhs.id_num }}">Details</a>
+    <a href="/vhs/{{ vhs.id_num }}/update">Update</a>
     <a href="/delete_vhstape/{{ vhs.id_num }}">Delete videotape</a>
 </div>
 {% endfor %}
