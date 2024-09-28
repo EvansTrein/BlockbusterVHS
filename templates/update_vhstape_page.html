@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Update VHS</h1>
+<div>
+    <h2>Enter new data</h2>
+    <form method="post">
+    <input type="text" name="name_film" id="name_film" value="{{ vhs.name_film }}"><br>
+    <input type="number" name="year" id="year" value="{{ vhs.year }}"><br>
+    <input type="text" name="age_rating" id="age_rating" value="{{ vhs.age_rating }}"><br>
+    <input type="number" name="count" id="count" value="{{ vhs.count }}"><br>
+    <input type="submit" value="отправить">
+    </form>
+</div>
+{% endblock %}

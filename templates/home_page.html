@@ -4,4 +4,16 @@
 
 {% block content %}
 <h1>Home Page</h1>
+<button onclick="confirmClearDatabase()">Очистить базу данных</button>
+
+
+
+<script>
+function confirmClearDatabase() {
+    if (confirm("Вы уверены, что хотите очистить базу данных?")) {
+        // отправляем запрос на очистку базы данных
+        fetch('/clear_database', { method: 'POST' });
+    }
+}
+</script>
 {% endblock %}
