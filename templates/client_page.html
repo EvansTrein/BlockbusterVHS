@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Client</h1>
+<h2>Info</h2>
+<div>
+    <h2>Name: {{ client.name }}</h2>
+    <p>id: {{ client.id_client }}</p>
+    <p>age: {{ client.age }}</p>
+    <p>phone: {{ client.phone }}</p>
+    <a href="/all_clients">Back</a>
+    <a href="/client/{{ client.id_client }}/update">Update</a>
+    <a href="/client/{{ client.id_client }}/delete">Delete client</a>
+</div>
+
+{% endblock %}

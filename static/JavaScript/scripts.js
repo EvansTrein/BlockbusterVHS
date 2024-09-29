@@ -9,3 +9,9 @@ function confirmClearDatabase() {
         fetch('/clear_database', { method: 'POST' });
     }
 }
+
+function confirmClearDatabaseClients() {
+    if (confirm("Are you sure you want to clean up the database?")) {
+        fetch('/clear_database_clients', { method: 'POST' });
+    }
+}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Update client</h1>
+<div>
+    <h2>Enter new data</h2>
+    <form method="post">
+    <input type="text" name="name" id="name" value="{{ client.name }}"><br>
+    <input type="number" name="age" id="age" value="{{ client.age }}"><br>
+    <input type="text" name="phone" id="phone" value="{{ client.phone }}"><br>
+    <input type="submit" value="save">
+    </form>
+    <a href="/all_clients">Back</a>
+</div>
+<div class="flash-error">{{ get_flashed_messages()[0] }}</div>
+{% endblock %}

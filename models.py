@@ -14,5 +14,5 @@ class Client(db.Model):
     id_client = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     age = db.Column(db.Integer)
-    phone = db.Column(db.Integer)
+    phone = db.Column(db.String)
 
