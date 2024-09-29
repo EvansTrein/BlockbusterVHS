@@ -5,14 +5,14 @@
 <h1>VHS</h1>
 <h2>Info</h2>
 <div>
-    <h2>Name: {{ vhs.name_film }}</h2>
+    <h2>Title: {{ vhs.title }}</h2>
     <p>id: {{ vhs.id_num }}</p>
     <p>year: {{ vhs.year }}</p>
     <p>age ratin: {{ vhs.age_rating }}</p>
     <p>count: {{ vhs.count }}</p>
     <a href="/all_vhstapes">Back</a>
     <a href="/vhs/{{ vhs.id_num }}/update">Update</a>
-    <a href="/delete_vhstape/{{ vhs.id_num }}">Delete videotape</a>
+    <a href="/vhs/{{ vhs.id_num }}/delete">Delete videotape</a>
 </div>
 
 {% endblock %}

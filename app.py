@@ -1,10 +1,10 @@
 from flask import render_template, request, redirect, flash
 from config import app, db
-from models import VhsTape
+from models import VhsTape, Client
 
 
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 
 @app.route("/")
@@ -27,30 +27,30 @@ def all_vhstapes():
 @app.route("/create_vhstape", methods=["GET", "POST"])
 def create_vhstape():
     if request.method == "POST":
-        name_film = request.form["name_film"]
+        title = request.form["title"]
         year = request.form["year"]
         age_rating = request.form["age_rating"]
         count = request.form["count"]
 
 
         # checking the conditions for a database record
-        if VhsTape.query.filter_by(name_film=name_film).first():
+        if VhsTape.query.filter_by(title=title).first():
             flash('There\'s already a tape like this')
             return render_template("create_vhstape_page.html")
-        elif not all((name_film, year, age_rating, count)):
+        elif not all((title, year, age_rating, count)):
             flash('All fields must be filled in')
             return render_template("create_vhstape_page.html")
-        elif len(name_film) > 100 or len(age_rating) > 4:
+        elif len(title) > 100 or len(age_rating) > 4:
             flash('The number of characters in the "name film" or "age rating" field is exceeded')
             return render_template("create_vhstape_page.html")
         else:
             try:
-                vhs = VhsTape(name_film=name_film, year=year, age_rating=age_rating, count=count)   
+                vhs = VhsTape(title=title, year=year, age_rating=age_rating, count=count)   
                 db.session.add(vhs)
                 db.session.commit()
                 return redirect("/create_vhstape")
             except Exception as err:
-                return f"There was an issue adding your VHS tape:/n {str(err)}"
+                return f"There was an issue adding your VHS tape >>>> {str(err)}"
             
     else:
         return render_template("create_vhstape_page.html")
@@ -60,13 +60,13 @@ def create_vhstape():
 def update_vhstape(id):
     vhs = VhsTape.query.get(id)
     if request.method == "POST":
-        name_film = request.form["name_film"]
+        title = request.form["title"]
         year = request.form["year"]
         age_rating = request.form["age_rating"]
         count = request.form["count"]
 
-        if all((name_film, year, age_rating, count)):
-            vhs.name_film = name_film
+        if all((title, year, age_rating, count)):
+            vhs.title = title
             vhs.year = year
             vhs.age_rating = age_rating
             vhs.count = count
@@ -84,7 +84,7 @@ def update_vhstape(id):
         return render_template("update_vhstape_page.html", vhs=vhs)
 
 
-@app.route("/delete_vhstape/<int:id>")
+@app.route("/vhs/<int:id>/delete")
 def delete_vhstape(id):
     vhs = VhsTape.query.get_or_404(id)
 
@@ -95,12 +95,44 @@ def delete_vhstape(id):
     except Exception as err:
         return f"There was a problem deleting that VHS tape:/n {str(err)}"
 
+
 @app.route("/clear_database", methods=["POST"])
 def clear_database():
     db.session.query(VhsTape).delete()
     db.session.commit()
 
     return "The database has been cleared"
+
+
+@app.route("/create_client", methods=["GET", "POST"])
+def create_client():
+    if request.method == "POST":
+        name = request.form["name"]
+        age = request.form["age"]
+        phone = request.form["phone"]
+
+        # checking the conditions for a database record
+        if VhsTape.query.filter_by(name=name).first():
+            flash('There\'s already a tape like this')
+            return render_template("create_client_page.html")
+        elif not all((name, age, phone)):
+            flash('All fields must be filled in')
+            return render_template("create_client_page.html")
+        elif int(age) < 14:
+            flash('Incorrect age')
+            return render_template("create_client_page.html")
+        else:
+            try:
+                new_client = Client(name=name, age=age, phone=phone)   
+                db.session.bind = 'clients'
+                db.session.add(new_client)
+                db.session.commit()
+                return redirect("/create_vhstape")
+            except Exception as err:
+                return f"There was an issue adding your client >>>> {str(err)}"
+            
+    else:
+        return render_template("create_client_page.html")
 
 
 if __name__ == "__main__":

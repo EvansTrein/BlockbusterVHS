@@ -5,13 +5,13 @@
 <h1>All VHS</h1>
 {% for vhs in all_vhstapes %}
 <div>
-    <h2>Name: {{ vhs.name_film }}</h2>
+    <h2>Title: {{ vhs.title }}</h2>
     <p>year: {{ vhs.year }}</p>
     <p>age rating: {{ vhs.age_rating }}</p>
     <p>count: {{ vhs.count }}</p>
     <a href="/vhs/{{ vhs.id_num }}">Details</a>
     <a href="/vhs/{{ vhs.id_num }}/update">Update</a>
-    <a href="/delete_vhstape/{{ vhs.id_num }}">Delete videotape</a>
+    <a href="/vhs/{{ vhs.id_num }}/delete">Delete videotape</a>
 </div>
 {% endfor %}
 

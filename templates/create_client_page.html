@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Add Client</h1>
+<div>
+    <h2>Enter data</h2>
+    <form method="post">
+    <input type="text" name="name" id="name" placeholder="name"><br>
+    <input type="number" name="age" id="age" placeholder="age"><br>
+    <input type="number" name="phone" id="phone" placeholder="phone"><br>
+    <input type="submit" value="send">
+    </form>
+    <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
+</div>
+{% endblock %}
