@@ -3,6 +3,24 @@
 
 {% block content %}
 <h1>All VHS</h1>
+
+<h1>All clients: {{ total }}</h1>
+<button onclick="document.querySelector('.search').style.display = 'block'; this.style.display = 'none';">
+    Show filters
+</button>
+<div class="search">
+    <form method="get">
+        <input type="text" name="film_title" placeholder="film title">
+        <input type="number" name="year_of_release" placeholder="year of release">
+        <input type="text" name="age_rating" placeholder="age rating">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+{% if count %}
+    <p>filtered: {{ count }}</p>
+{% endif %}
+
 {% for vhs in all_vhstapes %}
 <div>
     <h2>Title: {{ vhs.title }}</h2>

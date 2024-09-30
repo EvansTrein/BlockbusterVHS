@@ -12,6 +12,12 @@
     <a href="/all_clients">Back</a>
     <a href="/client/{{ client.id_client }}/update">Update</a>
     <a href="/client/{{ client.id_client }}/delete">Delete client</a>
+    <form method="post">
+        <p>To give this client a movie id:</p>
+        <input type="number" name="fiml_id" id="vhs_tape_id" placeholder="fiml id"><br>
+        <input type="submit" value="give">
+    </form>
+    <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
 </div>
 
 {% endblock %}

@@ -3,6 +3,23 @@
 
 {% block content %}
 <h1>All Clients</h1>
+
+<h1>All clients: {{ total }}</h1>
+<button onclick="document.querySelector('.search').style.display = 'block'; this.style.display = 'none';">
+    Show filters
+</button>
+<div class="search">
+    <form method="get">
+        <input type="number" name="min_age" placeholder="client min age">
+        <input type="number" name="max_age" placeholder="client max age">
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+{% if count %}
+    <p>filtered: {{ count }}</p>
+{% endif %}
+
 {% for client in all_clients %}
 <div>
     <h2>Name: {{ client.name }}</h2>

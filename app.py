@@ -31,8 +31,28 @@ def vhs(id):
 
 @app.route("/all_vhstapes")
 def all_vhstapes():
-    all_vhstapes = VhsTape.query.order_by(VhsTape.year.desc()).all()
-    return render_template("all_vhstapes_page.html", all_vhstapes=all_vhstapes)
+    total = VhsTape.query.count()
+    film_title = request.args.get("film_title")
+    year_of_release = request.args.get("year_of_release", type=int)
+    age_rating = request.args.get("age_rating")
+    data = {'total': total}
+
+    if film_title:
+        all_vhstapes = VhsTape.query.filter(VhsTape.title.like(f'%{film_title}%')).all()
+        count = VhsTape.query.filter(VhsTape.title.like(f'%{film_title}%')).count()
+        data['count'] = count
+    elif year_of_release:
+        all_vhstapes = VhsTape.query.filter(VhsTape.year == year_of_release).all()
+        count = VhsTape.query.filter(VhsTape.year == year_of_release).count()
+        data['count'] = count
+    elif age_rating:
+        all_vhstapes = VhsTape.query.filter(VhsTape.age_rating == age_rating).all()
+        count = VhsTape.query.filter(VhsTape.age_rating == age_rating).count()
+        data['count'] = count
+    else:
+        all_vhstapes = VhsTape.query.order_by(VhsTape.year.desc()).all()
+
+    return render_template("all_vhstapes_page.html", all_vhstapes=all_vhstapes, **data)
 
 
 @app.route("/create_vhstape", methods=["GET", "POST"])
@@ -162,14 +182,45 @@ def create_client():
 
 @app.route("/all_clients")
 def all_clients():
-    all_clients = Client.query.order_by(Client.name.desc()).all()
-    return render_template("all_clients_page.html", all_clients=all_clients)
+    total = Client.query.count()
+    min_age = request.args.get("min_age", type=int)
+    max_age = request.args.get("max_age", type=int)
+    data = {'total': total}
+
+    if min_age and max_age:
+        all_clients = Client.query.filter(Client.age.between(min_age, max_age)).all()
+        count = Client.query.filter(Client.age.between(min_age, max_age)).count()
+        data['count'] = count
+    elif min_age:
+        all_clients = Client.query.filter(Client.age >= min_age).order_by(Client.age.asc()).all()
+        count = Client.query.filter(Client.age >= min_age).count()
+        data['count'] = count
+    elif max_age:
+        all_clients = Client.query.filter(Client.age <= max_age).order_by(Client.age.asc()).all()
+        count = Client.query.filter(Client.age <= max_age).count()
+        data['count'] = count
+    else:
+        all_clients = Client.query.order_by(Client.name.desc()).all()
+
+    return render_template("all_clients_page.html", all_clients=all_clients, **data)
 
 
-@app.route("/client/<int:id>")
+@app.route("/client/<int:id>", methods=["GET", "POST"])
 def client(id):
     client = Client.query.get(id)
-    return render_template("client_page.html", client=client)
+
+    # ПЕРЕДЕЛАТЬ ПРОВЕРКУ!!!
+    if request.method == "POST":
+        fiml_id = int(request.form["fiml_id"])
+
+        if VhsTape.query.filter_by(id_num=fiml_id).first():
+            create_rental(id, fiml_id)
+        else:
+            flash("A movie with that ID does not exist")
+
+        return redirect(f"/client/{id}")
+    else:
+        return render_template("client_page.html", client=client)
 
 
 @app.route("/client/<int:id>/update", methods=["GET", "POST"])
@@ -240,10 +291,10 @@ def all_rentals():
 
 
 @app.route("/create_rental", methods=["GET", "POST"])
-def create_rental():
+def create_rental(*args):
     if request.method == "POST":
-        client_id = request.form["client_id"]
-        vhs_tape_id = request.form["vhs_tape_id"]
+        client_id = request.form["client_id"] if len(args) == 0 else args[0]
+        vhs_tape_id = request.form["vhs_tape_id"] if len(args) == 0 else args[1]
         client = Client.query.get(client_id)
         vhs = VhsTape.query.get(vhs_tape_id)
         existing_rental = Rental.query.filter_by(title_vhs=vhs.title, client_name=client.name).first()
