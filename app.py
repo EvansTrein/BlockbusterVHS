@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, flash
 from config import app, db
-from models import VhsTape, Client
+from models import VhsTape, Client, Rental
 from re import fullmatch
 
 
@@ -40,7 +40,7 @@ def create_vhstape():
         elif not all((title, year, age_rating, count)):
             flash("All fields must be filled in")
             return render_template("create_vhstape_page.html")
-        elif len(title) > 100 or len(age_rating) > 4:
+        elif len(title) > 100 or len(age_rating) > 10:
             flash(
                 'The number of characters in the "name film" or "age rating" field is exceeded'
             )
@@ -204,6 +204,32 @@ def clear_database_clients():
 
     return "The database has been cleared"
 
+
+# ===========================================================================================================
+
+@app.route("/all_issued")
+def all_issued():
+    all_issued = Rental.query.all()
+    return render_template("all_issued_page.html", all_issued=all_issued)
+
+
+@app.route("/create_rental", methods=["GET", "POST"])
+def create_rental():
+    if request.method == "POST":
+        client_id = request.form["client_id"]
+        vhs_tape_id = request.form["vhs_tape_id"]
+
+        try:
+                rental = Rental(client_id=client_id, vhs_tape_id=vhs_tape_id)
+                db.session.bind = "rentals"
+                db.session.add(rental)
+                db.session.commit()
+                return redirect("/create_rental")
+        except Exception as err:
+            return f"There was a problem with the cassette issue >>>> {str(err)}"
+    
+    else:
+        return render_template("create_rental_page.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

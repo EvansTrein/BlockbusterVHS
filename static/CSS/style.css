@@ -3,6 +3,19 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
+nav a {
+    text-decoration: none;
+    background:rgb(10, 64, 134);
+    color: black;
+    padding: 8px 20px 8px 20px;
+    margin: 15px;
+    border-radius: 10px;
+}
+
+nav a:hover {
+    background-color: #fdfdfd;
+}
+
 .flash-error {
     padding: 10px;
     font-size: 20px;
