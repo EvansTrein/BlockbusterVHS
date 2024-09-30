@@ -8,11 +8,13 @@
     <h2>Title: {{ vhs.title }}</h2>
     <p>id: {{ vhs.id_num }}</p>
     <p>year: {{ vhs.year }}</p>
-    <p>age ratin: {{ vhs.age_rating }}</p>
+    <p>age rating: {{ vhs.age_rating }}</p>
     <p>count: {{ vhs.count }}</p>
+    <p>available: {{ vhs.available_quantity }}</p>
+    <p>issued: {{ vhs.issued_to_clients }}</p>
     <a href="/all_vhstapes">Back</a>
     <a href="/vhs/{{ vhs.id_num }}/update">Update</a>
-    <a href="/vhs/{{ vhs.id_num }}/delete">Delete videotape</a>
+    <a href="/vhs/{{ vhs.id_num }}/delete">Delete</a>
 </div>
 
 {% endblock %}

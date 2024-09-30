@@ -13,6 +13,16 @@ def home():
     return render_template("home_page.html")
 
 
+@app.route("/clear_database", methods=["POST"])
+def clear_database():
+    db.session.query(VhsTape).delete()
+    db.session.query(Client).delete()
+    db.session.query(Rental).delete()
+    db.session.commit()
+
+    return "ALL databases have been cleaned"
+
+
 @app.route("/vhs/<int:id>")
 def vhs(id):
     vhs = VhsTape.query.get(id)
@@ -22,7 +32,7 @@ def vhs(id):
 @app.route("/all_vhstapes")
 def all_vhstapes():
     all_vhstapes = VhsTape.query.order_by(VhsTape.year.desc()).all()
-    return render_template("all_vhstape_page.html", all_vhstapes=all_vhstapes)
+    return render_template("all_vhstapes_page.html", all_vhstapes=all_vhstapes)
 
 
 @app.route("/create_vhstape", methods=["GET", "POST"])
@@ -67,15 +77,20 @@ def update_vhstape(id):
         title = request.form["title"]
         year = request.form["year"]
         age_rating = request.form["age_rating"]
-        count = request.form["count"]
+        count = int(request.form["count"])
+
+        if count < vhs.issued_to_clients:
+            flash("The total quantity may not be less than the sum of available and issued")
+            return redirect(f"/vhs/{id}/update")
 
         if all((title, year, age_rating, count)):
             vhs.title = title
             vhs.year = year
             vhs.age_rating = age_rating
             vhs.count = count
+            vhs.available_quantity = count - vhs.issued_to_clients
         else:
-            flash("fields cannot be empty")
+            flash("Fields cannot be empty")
             return redirect(f"/vhs/{id}/update")
 
         try:
@@ -91,6 +106,11 @@ def update_vhstape(id):
 @app.route("/vhs/<int:id>/delete")
 def delete_vhstape(id):
     vhs = VhsTape.query.get_or_404(id)
+    existing_rental = Rental.query.filter_by(title_vhs=vhs.title).first()
+
+    if existing_rental:
+        flash("You can't delete a movie that's been given away")
+        return redirect("/all_vhstapes")
 
     try:
         db.session.delete(vhs)
@@ -99,13 +119,6 @@ def delete_vhstape(id):
     except Exception as err:
         return f"There was a problem deleting that VHS tape >>>> {str(err)}"
 
-
-@app.route("/clear_database", methods=["POST"])
-def clear_database():
-    db.session.query(VhsTape).delete()
-    db.session.commit()
-
-    return "The database has been cleared"
 
 
 # ===========================================================================================================
@@ -188,29 +201,42 @@ def update_client(id):
 @app.route("/client/<int:id>/delete")
 def delete_client(id):
     client = Client.query.get_or_404(id)
+    existing_rental = Rental.query.filter_by(client_name=client.name).first()
+
+    if existing_rental:
+        flash("You can't delete a client who has a movie")
+        return redirect("/all_clients")
 
     try:
         db.session.delete(client)
         db.session.commit()
         return redirect("/all_clients")
     except Exception as err:
-        return f"There was a problem deleting that client tape >>>> {str(err)}"
-
-
-@app.route("/clear_database_clients", methods=["POST"])
-def clear_database_clients():
-    db.session.query(Client).delete()
-    db.session.commit()
-
-    return "The database has been cleared"
+        return f"There was a problem deleting that client >>>> {str(err)}"
 
 
 # ===========================================================================================================
 
-@app.route("/all_issued")
-def all_issued():
-    all_issued = Rental.query.all()
-    return render_template("all_issued_page.html", all_issued=all_issued)
+
+@app.route("/all_rentals")
+def all_rentals():
+    total = Rental.query.count()
+    client_name = request.args.get("client_name")
+    film_title = request.args.get("film_title")
+    data = {'total': total}
+
+    if client_name:
+        all_issued = Rental.query.filter(Rental.client_name.like(f"%{client_name}%")).all()
+        count = Rental.query.filter(Rental.client_name == client_name).count()
+        data['count'] = count
+    elif film_title:
+        all_issued = Rental.query.filter(Rental.title_vhs.like(f"%{film_title}%")).all()
+        count = Rental.query.filter(Rental.title_vhs == film_title).count()
+        data['count'] = count
+    else:
+        all_issued = Rental.query.all()
+
+    return render_template("all_rentals_page.html", all_issued=all_issued, **data)
 
 
 @app.route("/create_rental", methods=["GET", "POST"])
@@ -218,18 +244,55 @@ def create_rental():
     if request.method == "POST":
         client_id = request.form["client_id"]
         vhs_tape_id = request.form["vhs_tape_id"]
+        client = Client.query.get(client_id)
+        vhs = VhsTape.query.get(vhs_tape_id)
+        existing_rental = Rental.query.filter_by(title_vhs=vhs.title, client_name=client.name).first()
 
-        try:
+        if (client is None) and (vhs is None):
+            flash("The movie and client with those ID's do not exist")
+            return render_template("create_rental_page.html")
+        elif not client:
+            flash("Client with this ID does not exist")
+            return render_template("create_rental_page.html")
+        elif not vhs:
+            flash("A movie with that ID does not exist")
+            return render_template("create_rental_page.html")
+        elif existing_rental:
+            flash("This customer has already rented this movie")
+            return render_template("create_rental_page.html")
+        elif vhs.available_quantity == 0:
+            flash("Out of stock")
+            return render_template("create_rental_page.html")
+        else:
+            try:
                 rental = Rental(client_id=client_id, vhs_tape_id=vhs_tape_id)
                 db.session.bind = "rentals"
                 db.session.add(rental)
+                vhs.issued_to_clients += 1
+                vhs.available_quantity -= 1
                 db.session.commit()
                 return redirect("/create_rental")
-        except Exception as err:
-            return f"There was a problem with the cassette issue >>>> {str(err)}"
+            except Exception as err:
+                return f"There was a problem with the cassette issue >>>> {str(err)}"
     
     else:
         return render_template("create_rental_page.html")
+    
+
+@app.route("/rental/<int:id>/delete")
+def delete_rental(id):
+    rental = Rental.query.get_or_404(id)
+
+    try:
+        vhs = VhsTape.query.get(rental.vhs_tape_id)
+        vhs.issued_to_clients -= 1
+        vhs.available_quantity += 1
+        db.session.delete(rental)
+        db.session.commit()
+        return redirect("/all_rentals")
+    except Exception as err:
+        return f"There was a problem with deleting this lease >>>> {str(err)}"
+
 
 if __name__ == "__main__":
     app.run(debug=True)

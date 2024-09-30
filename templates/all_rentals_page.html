@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>All rentals: {{ total }}</h1>
+<button onclick="document.querySelector('.search').style.display = 'block'; this.style.display = 'none';">
+    Show filters
+</button>
+<div class="search">
+    <form method="get">
+        <input type="text" name="client_name" placeholder="client name">
+        <input type="text" name="film_title" placeholder="film title">
+        <button type="submit">Поиск</button>
+    </form>
+</div>
+
+{% if count %}
+    <p>filtered: {{ count }}</p>
+{% endif %}
+
+{% for rental in all_issued %}
+<div>
+    <h2>Id number rental: {{ rental.id_link }}</h2>
+    <p>client: {{ rental.client_name }}</p>
+    <p>id client: {{ rental.client_id }}</p>
+    <p>film: {{ rental.title_vhs }}</p>
+    <p>id film: {{ rental.vhs_tape_id }}</p>
+    <p>date of issue: {{ rental.date_created }}</p>
+    <a href="/rental/{{ rental.id_link }}/delete">Returne</a>
+</div>
+{% endfor %}
+
+{% endblock %}

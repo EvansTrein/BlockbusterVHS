@@ -22,6 +22,34 @@ nav a:hover {
     color: rgb(134, 10, 10);
 }
 
+.all-flash-error{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    font-size: 30px;
+    background-color: white;
+    border: 5px solid black;
+    border-radius: 20px;
+    color: rgb(134, 10, 10);
+    opacity: 0;
+    animation: fade-out 6s;
+}
+
+@keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+}
+
 .bar {
     font-size: 35px;
+}
+
+.search {
+    display: none;
 }

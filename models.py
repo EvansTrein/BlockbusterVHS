@@ -1,4 +1,5 @@
 from config import db
+from datetime import date
 
 
 class VhsTape(db.Model):
@@ -9,6 +10,12 @@ class VhsTape(db.Model):
     year = db.Column(db.Integer)
     age_rating = db.Column(db.String)
     count = db.Column(db.Integer)
+    available_quantity = db.Column(db.Integer, default=0)
+    issued_to_clients = db.Column(db.Integer, default=0)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.available_quantity = self.count
 
 
 class Client(db.Model):
@@ -31,3 +38,13 @@ class Rental(db.Model):
     vhs_tape_id = db.Column(db.Integer, db.ForeignKey('vhs_tapes.id_num'))
     client = db.relationship('Client', backref=db.backref('rentals', lazy='dynamic'))
     vhs_tapes = db.relationship('VhsTape', backref=db.backref('rentals', lazy='dynamic'))
+    client_name = db.Column(db.String)
+    title_vhs = db.Column(db.String)
+    date_created = db.Column(db.Date)
+
+    def __init__(self, client_id, vhs_tape_id):
+        self.client_id = client_id
+        self.vhs_tape_id = vhs_tape_id
+        self.client_name = Client.query.get(client_id).name
+        self.title_vhs = VhsTape.query.get(vhs_tape_id).title
+        self.date_created = date.today()

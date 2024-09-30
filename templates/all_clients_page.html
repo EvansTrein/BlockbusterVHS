@@ -14,5 +14,8 @@
     <a href="/client/{{ client.id_client }}/delete">Delete client</a>
 </div>
 {% endfor %}
+{% if get_flashed_messages() %}
+    <div class="all-flash-error">{{ get_flashed_messages()[0] }}</div>
+{% endif %}
 
 {% endblock %}
