@@ -208,6 +208,8 @@ def all_clients():
 @app.route("/client/<int:id>", methods=["GET", "POST"])
 def client(id):
     client = Client.query.get(id)
+    all_clients_films = Rental.query.filter(Rental.client_name == client.name).all()
+    count_films = Rental.query.filter(Rental.client_name == client.name).count()
 
     # ПЕРЕДЕЛАТЬ ПРОВЕРКУ!!!
     if request.method == "POST":
@@ -220,7 +222,7 @@ def client(id):
 
         return redirect(f"/client/{id}")
     else:
-        return render_template("client_page.html", client=client)
+        return render_template("client_page.html", client=client, all_clients_films=all_clients_films, count_films=count_films)
 
 
 @app.route("/client/<int:id>/update", methods=["GET", "POST"])

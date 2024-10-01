@@ -5,7 +5,7 @@ body {
 
 nav a {
     text-decoration: none;
-    background:rgb(10, 64, 134);
+    background:rgb(139, 72, 10);
     color: black;
     padding: 8px 20px 8px 20px;
     margin: 15px;
@@ -14,6 +14,23 @@ nav a {
 
 nav a:hover {
     background-color: #fdfdfd;
+}
+
+ul li {
+    padding: 0 0 15px 0;
+}
+
+li a {
+    text-decoration: none;
+    color: green;
+}
+
+ul li a {
+    display: inline-block;
+}
+
+ul li a:hover{
+    transform: scale(1.2);
 }
 
 .flash-error {

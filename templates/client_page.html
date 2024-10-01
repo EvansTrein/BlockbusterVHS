@@ -20,4 +20,12 @@
     <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
 </div>
 
+<h3>list of movies</h3>
+<ul>
+    <p>Total: {{ count_films }}</p>
+    {% for film in all_clients_films %}
+      <li>id film: {{ film.vhs_tape_id }} &LongRightArrow; &nbsp; <a href="/vhs/{{ film.vhs_tape_id }}">{{ film.title_vhs }}</a></li>
+    {% endfor %}
+  </ul>
+
 {% endblock %}
