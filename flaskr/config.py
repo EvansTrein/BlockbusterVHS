@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static', static_url_path='/static')
 app.secret_key = 'my_secret_key_1234567890'
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"

@@ -1,4 +1,4 @@
-from config import db
+from flaskr.config import db
 from datetime import date
 
 

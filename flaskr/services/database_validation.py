@@ -1,4 +1,4 @@
-from models import VhsTape, Client, Rental
+from flaskr.db_models import VhsTape, Client, Rental
 from re import fullmatch
 
 
