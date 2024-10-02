@@ -3,10 +3,10 @@
 
 {% block content %}
 <h1>Update client</h1>
+<h2>Client name: {{ client.name }}</h2>
 <div>
-    <h2>Enter new data</h2>
+    <h3>Enter new data</h3>
     <form method="post">
-    <input type="text" name="name" id="name" value="{{ client.name }}"><br>
     <input type="number" name="age" id="age" value="{{ client.age }}"><br>
     <input type="text" name="phone" id="phone" value="{{ client.phone }}"><br>
     <input type="submit" value="save">

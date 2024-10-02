@@ -4,6 +4,10 @@
 
 {% block content %}
 <h1>BlockbusterVHS</h1>
+<h2>Total films given away: {{ total_rentals }}</h2>
+<h3>Total clients: {{ total_clients }}</h3>
+<h3>Total films: {{ total_films }}</h3>
+<h3>Total VHS tapes in stock: {{total_movies_in_stock}}</h3>
 <button onclick="confirmClearDatabase()">Clear ALL databases</button>
 
 {% endblock %}

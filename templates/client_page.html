@@ -14,7 +14,7 @@
     <a href="/client/{{ client.id_client }}/delete">Delete client</a>
     <form method="post">
         <p>To give this client a movie id:</p>
-        <input type="number" name="fiml_id" id="vhs_tape_id" placeholder="fiml id"><br>
+        <input type="number" name="fiml_id" id="vhs_tape_id" placeholder="fiml id" required title="enter the movie ID"><br>
         <input type="submit" value="give">
     </form>
     <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
@@ -24,7 +24,9 @@
 <ul>
     <p>Total: {{ count_films }}</p>
     {% for film in all_clients_films %}
-      <li>id film: {{ film.vhs_tape_id }} &LongRightArrow; &nbsp; <a href="/vhs/{{ film.vhs_tape_id }}">{{ film.title_vhs }}</a></li>
+      <li>id film: {{ film.vhs_tape_id }} &LongRightArrow; &nbsp; <a href="/vhs/{{ film.vhs_tape_id }}">{{ film.title_vhs }}</a>
+        <a id="return-in-client" href="/rental/{{ film.id_link }}/delete"> returne </a>
+      </li>
     {% endfor %}
   </ul>
 

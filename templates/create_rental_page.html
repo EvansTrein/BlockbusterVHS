@@ -6,8 +6,8 @@
 <div>
     <h2>Enter data</h2>
     <form method="post">
-    <input type="number" name="client_id" id="client_id" placeholder="client id"><br>
-    <input type="number" name="vhs_tape_id" id="vhs_tape_id" placeholder="vhs id"><br>
+    <input type="number" name="client_id" id="client_id" placeholder="client id" required><br>
+    <input type="number" name="vhs_tape_id" id="vhs_tape_id" placeholder="vhs id" required><br>
     <input type="submit" value="send">
     </form>
     <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
