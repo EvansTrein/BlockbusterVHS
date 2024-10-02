@@ -45,12 +45,15 @@ def vhs(id):
 @app.route("/all_vhstapes")
 def all_vhstapes():
     total = VhsTape.query.count()
+    film_id = request.args.get("id_num", type=int)
     film_title = request.args.get("film_title")
     year_of_release = request.args.get("year_of_release", type=int)
     age_rating = request.args.get("age_rating")
     data = {"total": total}
 
-    if film_title:
+    if film_id:
+        all_vhstapes = VhsTape.query.filter(VhsTape.id_num == film_id).all()
+    elif film_title:
         all_vhstapes = VhsTape.query.filter(VhsTape.title.like(f"%{film_title}%")).all()
         count = VhsTape.query.filter(VhsTape.title.like(f"%{film_title}%")).count()
         data["count"] = count
@@ -224,12 +227,14 @@ def client(id):
 
         if not VhsTape.query.filter_by(id_num=fiml_id).first():
             flash("A movie with that ID does not exist")
+            return redirect(f"/client/{id}")
+        elif VhsTape.query.filter_by(id_num=fiml_id).first().available_quantity == 0:
+            flash("Out of stock")
+            return redirect(f"/client/{id}")
         else:
             create_rental(id, fiml_id)
             if total_rentals == Rental.query.count():
-                flash(
-                    "Failed to issue the movie to the client, check if the ID is correct or if the movie has not been issued previously"
-                )
+                flash("This customer has already rented this movie")
 
         return redirect(f"/client/{id}")
     else:
