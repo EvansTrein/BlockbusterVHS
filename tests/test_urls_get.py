@@ -1,8 +1,8 @@
-import unittest
-from flaskr import app
+from unittest import TestCase
+from flaskr.config import app
 
 
-class TestURLs(unittest.TestCase):
+class TestURLsGET(TestCase):
     def setUp(self):
         self.app = app.test_client()
 
@@ -37,6 +37,3 @@ class TestURLs(unittest.TestCase):
     def test_404(self):
         response = self.app.get('/non-existent-page')
         self.assertEqual(response.status_code, 404)
-
-if __name__ == '__main__':
-    unittest.main()

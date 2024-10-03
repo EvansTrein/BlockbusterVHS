@@ -10,7 +10,7 @@ def validateCreateVhs(data_in: dict) -> dict:
     count = data_in["count"]
     key_in = data_in["key_in"]
 
-    if VhsTape.query.filter_by(title=title).first() and key_in == "create":
+    if key_in == "create" and VhsTape.query.filter(VhsTape.title.ilike(title)).first(): 
         answer["error"] = True
         answer["error_text"] = "There's already a movie like that"
         return answer
@@ -18,9 +18,9 @@ def validateCreateVhs(data_in: dict) -> dict:
         answer["error"] = True
         answer["error_text"] = "All fields must be filled in"
         return answer
-    elif not 1900 <= int(data_in["year"]) <= 10000:
+    elif not data_in["year"].isdigit() or not 1900 <= int(data_in["year"]) <= 10000:
         answer["error"] = True
-        answer["error_text"] = "Incorrect year format"
+        answer["error_text"] = "Incorrect year"
         return answer
     elif len(title) > 100 or len(age_rating) > 10:
         answer["error"] = True
@@ -42,7 +42,7 @@ def validateUpdateVhs(data_in: dict) -> str:
     if not count.isdigit():
         error_text = "count can only be an integer"
         return error_text
-    if int(count) < obj_bd.issued_to_clients:
+    if not data_in["year"].isdigit() or int(count) < obj_bd.issued_to_clients:
         error_text = (
             "The total quantity may not be less than the sum of available and issued"
         )
@@ -60,7 +60,7 @@ def validateCreateClient(data_in: dict) -> dict:
     phone = data_in["phone"]
     key_in = data_in["key_in"]
 
-    if Client.query.filter_by(name=name).first() and key_in == "create":
+    if key_in == "create" and Client.query.filter(Client.name.ilike(name)).first():
         answer["error"] = True
         answer["error_text"] = "There's already a client like that"
         return answer
@@ -68,7 +68,7 @@ def validateCreateClient(data_in: dict) -> dict:
         answer["error"] = True
         answer["error_text"] = "All fields must be filled in"
         return answer
-    elif int(age) < 14:
+    elif not data_in["age"].isdigit() or int(age) < 14:
         answer["error"] = True
         answer["error_text"] = "The client cannot be under 14 years of age"
         return answer
