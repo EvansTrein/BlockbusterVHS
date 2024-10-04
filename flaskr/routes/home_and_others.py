@@ -10,7 +10,7 @@ def home():
         "total_rentals": Rental.query.count(),
         "total_clients": Client.query.count(),
         "total_films": VhsTape.query.count(),
-        "total_movies_in_stock": db.session.query(db.func.sum(VhsTape.count)).scalar(),
+        "total_movies_in_stock": db.session.query(db.func.sum(VhsTape.available_quantity)).scalar(),
     }
 
     return render_template("home_page.html", **data)

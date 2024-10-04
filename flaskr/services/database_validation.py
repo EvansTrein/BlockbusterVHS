@@ -100,9 +100,6 @@ def validateCreateRental(data_in: dict) -> dict:
     vhs_tape_id = data_in["vhs_tape_id"]
     client = Client.query.get(client_id)
     vhs = VhsTape.query.get(vhs_tape_id)
-    existing_rental = Rental.query.filter_by(
-        title_vhs=vhs.title, client_name=client.name
-    ).first()
 
     if (client is None) and (vhs is None):
         answer["error"] = True
@@ -116,7 +113,7 @@ def validateCreateRental(data_in: dict) -> dict:
         answer["error"] = True
         answer["error_text"] = "A movie with that ID does not exist"
         return answer
-    elif existing_rental:
+    elif Rental.query.filter_by(title_vhs=vhs.title, client_name=client.name).first():
         answer["error"] = True
         answer["error_text"] = "This customer has already rented this movie"
         return answer

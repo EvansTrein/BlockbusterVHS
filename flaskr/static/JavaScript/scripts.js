@@ -9,3 +9,9 @@ function confirmClearDatabase() {
         fetch('/clear_database', { method: 'POST' });
     }
 }
+
+function DownloadMovies() {
+    if (confirm("To download movies?")) {
+        fetch('/', { method: 'POST' });
+    }
+}
