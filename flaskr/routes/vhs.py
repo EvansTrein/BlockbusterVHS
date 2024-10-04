@@ -6,15 +6,24 @@ from flaskr.services.database_validation import validateCreateVhs, validateUpdat
 route_vhs = Blueprint('route_vhs', __name__)
 
 @app.route("/create_vhstape", methods=["GET", "POST"])
-def create_vhstape():
+def create_vhstape(*args):
     if request.method == "POST":
-        data_in = {
-            "key_in": "create",
-            "title": request.form["title"],
-            "year": request.form["year"],
-            "age_rating": request.form["age_rating"],
-            "count": request.form["count"],
-        }
+        if len(args) == 0:
+            data_in = {
+                "key_in": "create",
+                "title": request.form["title"],
+                "year": request.form["year"],
+                "age_rating": request.form["age_rating"],
+                "count": request.form["count"]
+            }
+        else:
+            data_in = {
+                "key_in": "create",
+                "title": args[0]["title"],
+                "year": args[0]["year"],
+                "age_rating": args[0]["age_rating"],
+                "count": args[0]["count"]
+            }
 
         valid_res = validateCreateVhs(data_in)
         if valid_res["error"]:

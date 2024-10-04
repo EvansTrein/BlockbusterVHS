@@ -6,12 +6,24 @@ $(document).ready(function() {
 
 function confirmClearDatabase() {
     if (confirm("Are you sure you want to clean up the All database?")) {
-        fetch('/clear_database', { method: 'POST' });
+        fetch('/clear_database', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
+            });
     }
 }
 
 function DownloadMovies() {
     if (confirm("To download movies?")) {
-        fetch('/', { method: 'POST' });
+        fetch('/download_films', { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
+            });
     }
 }

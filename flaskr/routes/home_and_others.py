@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify, flash
 from flaskr.config import app, db
 from flaskr.db_models import Client, VhsTape, Rental
+from flaskr.services.uploading_movies_to_database import download_films
+from flaskr.routes.vhs import create_vhstape
 
 route_home_and_others = Blueprint('route_home_and_others', __name__)
 
@@ -23,4 +25,17 @@ def clear_database():
     db.session.query(Rental).delete()
     db.session.commit()
 
-    return "ALL databases have been cleaned"
+    return jsonify({'redirect': '/'})
+
+
+@app.route("/download_films", methods=["POST"])
+def download():
+    res = download_films.download()
+    if not res['error']:
+        for el in res['films']:
+            create_vhstape(el)
+
+        return jsonify({'redirect': '/'})
+    
+    flash(res['error_text'])
+    return jsonify({'redirect': '/'})
