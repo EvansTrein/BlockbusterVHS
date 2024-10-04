@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, flash
+from flask import Blueprint, render_template, jsonify, flash, request
 from flaskr.config import app, db
 from flaskr.db_models import Client, VhsTape, Rental
 from flaskr.services.uploading_movies_to_database import download_films
@@ -30,7 +30,8 @@ def clear_database():
 
 @app.route("/download_films", methods=["POST"])
 def download():
-    res = download_films.download()
+    number = int(request.get_data())
+    res = download_films.download(number)
     if not res['error']:
         for el in res['films']:
             create_vhstape(el)

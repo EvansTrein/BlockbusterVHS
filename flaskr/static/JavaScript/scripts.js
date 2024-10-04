@@ -17,13 +17,23 @@ function confirmClearDatabase() {
 }
 
 function DownloadMovies() {
-    if (confirm("To download movies?")) {
-        fetch('/download_films', { method: 'POST' })
+    var number = prompt("enter the quantity for EVERY movie to be added to the warehouse:");
+    if (number !== null) {
+        number = parseInt(number);
+        if (number >= 1 && number <= 1000) {
+            // send a number
+            fetch('/download_films', {
+                method: 'POST',
+                body: number.toString()
+            })
             .then(response => response.json())
             .then(data => {
                 if (data.redirect) {
                     window.location.href = data.redirect;
                 }
             });
+        } else {
+            alert("Введите число от 1 до 1000");
+        }
     }
 }
