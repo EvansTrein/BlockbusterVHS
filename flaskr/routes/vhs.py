@@ -71,7 +71,7 @@ def all_vhstapes():
         count = VhsTape.query.filter(VhsTape.age_rating == age_rating).count()
         data["count"] = count
     else:
-        all_vhstapes = VhsTape.query.order_by(VhsTape.year.desc()).all()
+        all_vhstapes = VhsTape.query.order_by(VhsTape.id_num.asc()).all()
 
     return render_template("vhs/all_vhstapes_page.html", all_vhstapes=all_vhstapes, **data)
 

@@ -1,25 +1,29 @@
 import requests
+import json
 from bs4 import BeautifulSoup
 
-header = {'user-agent': 'magic', 'Accept-Language': 'en-US'}
+
+header = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3', 'Accept-Language': 'en-US'}
 
 link = 'https://www.imdb.com/chart/top/'
 
 def download():
+    all_films = []
     answer = {"error": False, "error_text": "", "films": None}
     try:
         responce = requests.get(link, headers=header).text
         soup = BeautifulSoup(responce, 'lxml')
-        block = soup.find('ul', class_='ipc-metadata-list ipc-metadata-list--dividers-between sc-a1e81754-0 dHaCOW compact-list-view ipc-metadata-list--base')
-        all_top_250 = block.find_all('li', class_='ipc-metadata-list-summary-item sc-10233bc-0 TwzGn cli-parent')
+        data = soup.find('script', id='__NEXT_DATA__')
+        data_json = json.loads(data.text)
 
-        all_films = []
-        for one_element in all_top_250:
+        for el in data_json['props']['pageProps']['pageData']['chartTitles']['edges']:
             film = {'title': '', 'year': '', 'age_rating': '', 'count': '20'}
-            film['title'] = ''.join(x for x in one_element.find('h3', class_='ipc-title__text').text if x.isalpha() or x == ' ')
-            data = one_element.find('div', class_='sc-ab348ad5-7 cqgETV cli-title-metadata')
-            film['year'] = data.find_all('span')[0].text
-            film['age_rating'] = data.find_all('span')[2].text
+
+            film['title'] = el['node']['titleText']['text']
+            film['year'] = str(el['node']['releaseYear']['year'])
+            rating = el['node']['certificate']
+            film['age_rating'] = el['node']['certificate']['rating'] if rating else 'Not Rated'
+
             all_films.append(film)
         
         answer['films'] = all_films
@@ -28,6 +32,3 @@ def download():
         answer['error'] = True
         answer['error_text'] = str(er)
         return answer
-
-
-# download()
