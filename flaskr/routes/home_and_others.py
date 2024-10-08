@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, flash, request
+from flask import Blueprint, render_template, jsonify, flash, request, send_from_directory
 from flaskr.config import app, db
 from flaskr.db_models import Client, VhsTape, Rental
 from flaskr.services.uploading_movies_to_database import download_films
@@ -40,3 +40,8 @@ def download():
     
     flash(res['error_text'])
     return jsonify({'redirect': '/'})
+
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory(app.static_folder, filename)

@@ -8,15 +8,17 @@
     <title>BlockbusterVHS</title>
 </head>
 <body>
-    <nav class="bar">
-        <a href="/">Home</a>
-        <a href="/all_vhstapes">All VHS</a>
-        <a href="/create_vhstape">Add VHS</a>
-        <a href="/all_clients">All clients</a>
-        <a href="/create_client">Add client</a>
-        <a href="/all_rentals">All rentals</a>
-        <a href="/create_rental">Add rental</a>
-    </nav>
-    {% block content %}{% endblock %}
+    <div class="main">
+        <nav class="main-nav {% block nav_class %}{% endblock %}">
+            <a href="/">Home</a>
+            <a href="/all_vhstapes">All VHS</a>
+            <a href="/create_vhstape">Add VHS</a>
+            <a href="/all_clients">All clients</a>
+            <a href="/create_client">Add client</a>
+            <a href="/all_rentals">All rentals</a>
+            <a href="/create_rental">Add rental</a>
+        </nav>
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>

@@ -2,19 +2,28 @@
 
 
 {% block content %}
-<h1>VHS</h1>
-<h2>Info</h2>
-<div>
-    <h2>Title: {{ vhs.title }}</h2>
-    <p>id: {{ vhs.id_num }}</p>
-    <p>year: {{ vhs.year }}</p>
-    <p>age rating: {{ vhs.age_rating }}</p>
-    <p>count: {{ vhs.count }}</p>
-    <p>available: {{ vhs.available_quantity }}</p>
-    <p>issued: {{ vhs.issued_to_clients }}</p>
-    <a href="/all_vhstapes">Back</a>
-    <a href="/vhs/{{ vhs.id_num }}/update">Update</a>
-    <a href="/vhs/{{ vhs.id_num }}/delete">Delete</a>
+<div class="vhs-page">
+    <h1 id="home-title">VHS</h1>
+    <h2 style="padding-left: 140px;">Film:</h2>
+    <div class="film-card">
+        <div id="poster-film">
+            <img src="/static/images/stock_img_film.jpg">
+        </div>
+        <div id="film-info">
+            <h2>{{ vhs.title }}</h2>
+            <p>id film: {{ vhs.id_num }}</p>
+            <p>year: {{ vhs.year }}</p>
+            <p>age rating: {{ vhs.age_rating }}</p>
+            <p>count: {{ vhs.count }}</p>
+            <p>available: {{ vhs.available_quantity }}</p>
+            <p>issued: {{ vhs.issued_to_clients }}</p>
+        </div>
+        <div id="button-film">
+            <a href="/all_vhstapes">Back</a>
+            <a href="/vhs/{{ vhs.id_num }}/update">Update</a>
+            <a href="/vhs/{{ vhs.id_num }}/delete">Delete</a>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

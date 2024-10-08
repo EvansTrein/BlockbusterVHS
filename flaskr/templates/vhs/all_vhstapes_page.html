@@ -2,41 +2,50 @@
 
 
 {% block content %}
-<h1>All VHS</h1>
+<div class="all-vhs">
+    <h1 id="home-title">All VHS</h1>
 
-<h1>Total films: {{ total }}</h1>
-<button onclick="document.querySelector('.search').style.display = 'block'; this.style.display = 'none';">
-    Show filters
-</button>
-<div class="search">
-    <form method="get">
-        <input type="number" name="id_num" placeholder="id film">
-        <input type="text" name="film_title" placeholder="film title">
-        <input type="number" name="year_of_release" placeholder="year of release">
-        <input type="text" name="age_rating" placeholder="age rating">
-        <button type="submit">Search</button>
-    </form>
+    <h1>Total films: {{ total }}</h1>
+    <button class="filter-button" onclick="document.querySelector('.search').style.display = 'block'; this.style.display = 'none';">
+        Show filters
+    </button>
+    <div class="search">
+        <form method="get">
+            <input type="number" name="id_num" placeholder="id film">
+            <input type="text" name="film_title" placeholder="film title">
+            <input type="number" name="year_of_release" placeholder="year of release">
+            <input type="text" name="age_rating" placeholder="age rating">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    {% if count %}
+        <p>filtered: {{ count }}</p>
+    {% endif %}
+
+    {% for vhs in all_vhstapes %}
+    <div class="film-card">
+        <div id="poster-film">
+            <img src="/static/images/stock_img_film.jpg">
+        </div>
+        <div id="film-info">
+            <h2>{{ vhs.title }}</h2>
+            <p>id film: {{ vhs.id_num }}</p>
+            <p>year: {{ vhs.year }}</p>
+            <p>age rating: {{ vhs.age_rating }}</p>
+            <p>count: {{ vhs.count }}</p>
+            <p>available: {{ vhs.available_quantity }}</p>
+            <p>issued: {{ vhs.issued_to_clients }}</p>
+        </div>
+        <div id="button-film">
+            <a href="/vhs/{{ vhs.id_num }}">Details</a>
+            <a href="/vhs/{{ vhs.id_num }}/update">Update</a>
+            <a href="/vhs/{{ vhs.id_num }}/delete">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+    {% if get_flashed_messages() %}
+        <div class="all-flash-error">{{ get_flashed_messages()[0] }}</div>
+    {% endif %}
 </div>
-
-{% if count %}
-    <p>filtered: {{ count }}</p>
-{% endif %}
-
-{% for vhs in all_vhstapes %}
-<div>
-    <h2>Title film - {{ vhs.title }}</h2>
-    <p>id film: {{ vhs.id_num }}</p>
-    <p>year: {{ vhs.year }}</p>
-    <p>age rating: {{ vhs.age_rating }}</p>
-    <p>count: {{ vhs.count }}</p>
-    <p>available: {{ vhs.available_quantity }}</p>
-    <p>issued: {{ vhs.issued_to_clients }}</p>
-    <a href="/vhs/{{ vhs.id_num }}">Details</a>
-    <a href="/vhs/{{ vhs.id_num }}/update">Update</a>
-    <a href="/vhs/{{ vhs.id_num }}/delete">Delete</a>
-</div>
-{% endfor %}
-{% if get_flashed_messages() %}
-    <div class="all-flash-error">{{ get_flashed_messages()[0] }}</div>
-{% endif %}
 {% endblock %}
