@@ -2,32 +2,39 @@
 
 
 {% block content %}
-<h1>Client</h1>
-<h2>Info</h2>
-<div>
+<h1 id="home-title" style="margin-top: 25px; margin-bottom: 25px;">Client</h1>
+<div class="cliebt-card">
+    <div id="client-info">
     <h2>Name: {{ client.name }}</h2>
     <p>id: {{ client.id_client }}</p>
     <p>age: {{ client.age }}</p>
     <p>phone: {{ client.phone }}</p>
-    <a href="/all_clients">Back</a>
-    <a href="/client/{{ client.id_client }}/update">Update</a>
-    <a href="/client/{{ client.id_client }}/delete">Delete client</a>
-    <form method="post">
-        <p>To give this client a movie id:</p>
-        <input type="number" name="fiml_id" id="vhs_tape_id" placeholder="fiml id" required title="enter the movie ID"><br>
-        <input type="submit" value="give">
-    </form>
-    <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
+    </div>
+    <div id="client-button">
+    <a class="button-all" href="/all_clients">Back</a>
+    <a class="button-all" href="/client/{{ client.id_client }}/update">Update</a>
+    <a class="button-all" href="/client/{{ client.id_client }}/delete">Delete</a>
+    </div>
 </div>
-
-<h3>list of movies</h3>
-<ul>
-    <p>Total: {{ count_films }}</p>
-    {% for film in all_clients_films %}
-      <li>id film: {{ film.vhs_tape_id }} &LongRightArrow; &nbsp; <a href="/vhs/{{ film.vhs_tape_id }}">{{ film.title_vhs }}</a>
-        <a id="return-in-client" href="/rental/{{ film.id_link }}/delete"> returne </a>
-      </li>
-    {% endfor %}
-  </ul>
-
+<div class="client-films">
+    <div id="client-add-film">
+        <form method="post">
+            <h3>To give this client a movie id:</h3>
+            <input type="number" name="fiml_id" id="vhs_tape_id" placeholder="fiml id" required title="enter the movie ID">
+            <input class="button-all"  type="submit" value="give">
+        </form>
+        <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
+    </div>
+    <div id="client-all-films">
+        <ul>
+            <h3>list of movies:</h3>
+            <p>Total: {{ count_films }}</p>
+            {% for film in all_clients_films %}
+            <li>id film: {{ film.vhs_tape_id }} &LongRightArrow; &nbsp; <a id="film-link" href="/vhs/{{ film.vhs_tape_id }}">{{ film.title_vhs }}</a>
+                <a class="button-all" href="/rental/{{ film.id_link }}/delete"> returne </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}

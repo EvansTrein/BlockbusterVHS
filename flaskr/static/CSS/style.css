@@ -23,6 +23,7 @@ nav {
     flex-wrap: wrap;
     position: sticky;
     top: 0;
+    z-index: 4;
 }
 
 nav a {
@@ -39,16 +40,6 @@ nav a {
 
 nav a:hover {
     background-color: aliceblue;
-}
-
-#return-in-client{
-    color: red;
-    margin-left: 25px;
-    border: 2px solid black;
-    border-radius: 5px;
-    padding-left: 2px;
-    padding-right: 2px;
-    background-color: #fdfdfd;
 }
 
 .flash-error {
@@ -84,7 +75,7 @@ nav a:hover {
 .home-page {
     display: flex;
     flex-direction: column;
-    height: 80vh;
+    height: 100%;
     z-index: 0;
 }
 
@@ -263,19 +254,25 @@ nav a:hover {
 }
 
 #button-film > a {
-    padding: 40px;
     margin: 5px;
     flex-grow: 1;
+    font-size: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.button-all {
     text-decoration: none;
+    background-color: rgb(44, 52, 155);
     color: black;
     border: 3px solid black;
     border-radius: 5px;
-    background-color: rgb(44, 52, 155);
-    font-size: 40px;
-    text-align: center;
 }
 
-#button-film > a:hover {
+.button-all:hover {
     background-color: aliceblue;
     box-shadow: 0 0 30px rgba(0, 0, 255, 1);
 }
@@ -288,25 +285,150 @@ nav a:hover {
 
 .vhs-update {
     display: flex;
-    padding: 10px;
-}
-
-.vhs-update > h3 {
-    border: 2px solid red;
-    padding: 10px;
-
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background: rgb(80, 79, 79);
 }
 
 .vhs-update > form {
-    border: 2px solid red;
-    padding: 10px;
-    width: 50%;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 20%;
+    padding: 5px;
+    margin: 10px;
 }
 
 .vhs-update > form > input {
-    width: 100%;
+    width: 90%;
+    margin: 5px;
+    border-radius: 5px;
 }
 
 .vhs-update > a {
-    border: 3px solid black;
+    margin: 5px;
+    width: 15%;
+    text-decoration: none;
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: rgb(44, 52, 155);
+    text-align: center;
+}
+
+.cliebt-card {
+    border-radius: 10px;
+    background: rgb(80, 79, 79);
+    display: flex;
+    padding: 5px;
+    margin: 5px;
+    position: relative;
+}
+
+#client-info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: center;
+}
+
+#client-info > p {
+    font-size: 20px;
+}
+
+#client-info > h2 {
+    text-decoration: underline;
+}
+
+#client-button {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+#client-button > a {
+    margin: 5px;
+    flex-grow: 1;
+    font-size: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.client-films {
+    border-radius: 10px;
+    background: rgb(80, 79, 79);
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+#client-add-film {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#client-add-film > form > input {
+    border-radius: 5px;
+}
+
+#client-all-films {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+}
+
+#client-all-films > ul {
+    border: 2px solid black;
+    border-radius: 10px;
+    list-style: none;
+    width: 60%;
+}
+
+#client-all-films > ul > li {
+    margin: 10px;
+}
+
+#film-link {
+    font-size: 20;
+    color:  black;
+    margin-right: 30px;
+}
+
+#film-link:hover {
+    color: orange;
+}
+
+.rental-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background: rgb(80, 79, 79);
+    display: flex;
+    margin: 5px;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.rental-card > p {
+    font-size: 20px;
+    margin: 15px;
+}
+
+.rental-card > a {
+    width: 20%;
+    text-align: center;
+    margin-bottom: 10px;
 }

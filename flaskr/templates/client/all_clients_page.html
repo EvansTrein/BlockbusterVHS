@@ -2,9 +2,9 @@
 
 
 {% block content %}
-<h1>All clients: {{ total }}</h1>
+<h1 id="home-title" style="margin-top: 25px;">All clients: {{ total }}</h1>
 
-<button onclick="document.querySelector('.search').style.display = 'block'; this.style.display = 'none';">
+<button class="filter-button" onclick="document.querySelector('.search').style.display = 'block'; this.style.display = 'none';">
     Show filters
 </button>
 <div class="search">
@@ -20,14 +20,18 @@
 {% endif %}
 
 {% for client in all_clients %}
-<div>
+<div class="cliebt-card">
+    <div id="client-info">
     <h2>Name: {{ client.name }}</h2>
     <p>id: {{ client.id_client }}</p>
     <p>age: {{ client.age }}</p>
     <p>phone: {{ client.phone }}</p>
-    <a href="/client/{{ client.id_client }}">Details</a>
-    <a href="/client/{{ client.id_client }}/update">Update</a>
-    <a href="/client/{{ client.id_client }}/delete">Delete client</a>
+    </div>
+    <div id="client-button">
+    <a class="button-all" href="/client/{{ client.id_client }}">Details</a>
+    <a class="button-all" href="/client/{{ client.id_client }}/update">Update</a>
+    <a class="button-all" href="/client/{{ client.id_client }}/delete">Delete</a>
+    </div>
 </div>
 {% endfor %}
 {% if get_flashed_messages() %}

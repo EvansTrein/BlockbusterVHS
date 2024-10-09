@@ -2,16 +2,16 @@
 
 
 {% block content %}
-<h1>Update client</h1>
-<h2>Client name: {{ client.name }}</h2>
-<div>
-    <h3>Enter new data</h3>
+<h1 id="home-title" style="margin-top: 25px;">Update client</h1>
+<h2 style="text-align: center;">Client name: {{ client.name }}</h2>
+<h3 style="text-align: center;">Enter new data</h3>
+<div class="vhs-update">
     <form method="post">
     <input type="number" name="age" id="age" value="{{ client.age }}"><br>
     <input type="text" name="phone" id="phone" value="{{ client.phone }}"><br>
-    <input type="submit" value="save">
+    <input class="button-all" type="submit" value="save">
     </form>
-    <a href="/all_clients">Back</a>
+    <a class="button-all" href="/all_clients">Back</a>
 </div>
 <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
 {% endblock %}
