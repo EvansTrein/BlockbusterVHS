@@ -12,6 +12,7 @@ class VhsTape(db.Model):
     count = db.Column(db.Integer)
     available_quantity = db.Column(db.Integer, default=0)
     issued_to_clients = db.Column(db.Integer, default=0)
+    poster_image = db.Column(db.String(255))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

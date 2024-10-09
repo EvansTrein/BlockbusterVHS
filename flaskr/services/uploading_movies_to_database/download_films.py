@@ -21,7 +21,7 @@ def download(num):
         data_json = json.loads(data.text)
 
         for el in data_json["props"]["pageProps"]["pageData"]["chartTitles"]["edges"]:
-            film = {"title": "", "year": "", "age_rating": "", "count": num}
+            film = {"title": "", "year": "", "age_rating": "", "poster_image": "", "count": num}
 
             film["title"] = el["node"]["titleText"]["text"]
             film["year"] = str(el["node"]["releaseYear"]["year"])
@@ -29,6 +29,7 @@ def download(num):
             film["age_rating"] = (
                 el["node"]["certificate"]["rating"] if rating else "Not Rated"
             )
+            film["poster_image"] = el["node"]["primaryImage"]["url"]
 
             all_films.append(film)
 

@@ -14,7 +14,8 @@ def create_vhstape(*args):
                 "title": request.form["title"],
                 "year": request.form["year"],
                 "age_rating": request.form["age_rating"],
-                "count": request.form["count"]
+                "count": request.form["count"],
+                "poster_image": '../static/images/stock_img_film.jpg'
             }
         else:
             data_in = {
@@ -22,7 +23,8 @@ def create_vhstape(*args):
                 "title": args[0]["title"],
                 "year": args[0]["year"],
                 "age_rating": args[0]["age_rating"],
-                "count": args[0]["count"]
+                "count": args[0]["count"],
+                "poster_image": args[0]["poster_image"]
             }
 
         valid_res = validateCreateVhs(data_in)
@@ -36,6 +38,7 @@ def create_vhstape(*args):
                 year=data_in["year"],
                 age_rating=data_in["age_rating"],
                 count=data_in["count"],
+                poster_image=data_in["poster_image"]
             )
             db.session.add(vhs)
             db.session.commit()

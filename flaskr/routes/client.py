@@ -61,6 +61,9 @@ def all_clients():
         data["count"] = count
     else:
         all_clients = Client.query.order_by(Client.name.desc()).all()
+        for client in all_clients:
+            count_rentals = Rental.query.filter(Rental.client_name == client.name).count()
+            client.rental_count = count_rentals
 
     return render_template("client/all_clients_page.html", all_clients=all_clients, **data)
 
