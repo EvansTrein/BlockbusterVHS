@@ -121,5 +121,9 @@ def validateCreateRental(data_in: dict) -> dict:
         answer["error"] = True
         answer["error_text"] = "Out of stock"
         return answer
+    elif vhs.age_rating in ('R', 'NC-17') and client.age < 18:
+        answer["error"] = True
+        answer["error_text"] = "The client does not pass the age limit of the movie"
+        return answer
     else:
         return answer

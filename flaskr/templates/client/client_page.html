@@ -30,7 +30,7 @@
             <h3>list of movies:</h3>
             <p>Total: {{ count_films }}</p>
             {% for film in all_clients_films %}
-            <li>id film: {{ film.vhs_tape_id }} &LongRightArrow; &nbsp; <a id="film-link" href="/vhs/{{ film.vhs_tape_id }}">{{ film.title_vhs }}</a>
+            <li>date: {{ film.date_created }} &LongRightArrow; &nbsp; id film: {{ film.vhs_tape_id }} &LongRightArrow; &nbsp; <a id="film-link" href="/vhs/{{ film.vhs_tape_id }}">{{ film.title_vhs }}</a>
                 <a class="button-all" href="/rental/{{ film.id_link }}/delete"> returne </a>
             </li>
             {% endfor %}

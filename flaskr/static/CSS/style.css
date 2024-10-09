@@ -309,7 +309,7 @@ nav a:hover {
     text-align: center;
     border: 2px solid black;
     border-radius: 10px;
-    width: 20%;
+    width: 30%;
     padding: 5px;
     margin: 10px;
 }
@@ -406,7 +406,7 @@ nav a:hover {
     border: 2px solid black;
     border-radius: 10px;
     list-style: none;
-    width: 60%;
+    width: 80%;
 }
 
 #client-all-films > ul > li {
