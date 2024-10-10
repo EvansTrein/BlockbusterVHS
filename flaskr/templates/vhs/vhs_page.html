@@ -1,29 +1,26 @@
-{% extends "base.html" %}
-
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="vhs-page">
-    <h1 id="home-title" style="margin-top: 25px;">VHS</h1>
-    <h2 style="padding-left: 140px;">Film:</h2>
-    <div class="film-card">
-        <div id="poster-film">
-            <img src="{{ vhs.poster_image }}">
-        </div>
-        <div id="film-info">
-            <h2>{{ vhs.title }}</h2>
-            <p>id film: {{ vhs.id_num }}</p>
-            <p>year: {{ vhs.year }}</p>
-            <p>age rating: {{ vhs.age_rating }}</p>
-            <p>count: {{ vhs.count }}</p>
-            <p>available: {{ vhs.available_quantity }}</p>
-            <p>issued: {{ vhs.issued_to_clients }}</p>
-        </div>
-        <div id="button-film">
-            <a class="button-all" href="/all_vhstapes">Back</a>
-            <a class="button-all" href="/vhs/{{ vhs.id_num }}/update">Update</a>
-            <a class="button-all" href="/vhs/{{ vhs.id_num }}/delete">Delete</a>
-        </div>
+  <h1 id="home-title" style="margin-top: 25px">VHS</h1>
+  <h2 style="padding-left: 140px">Film:</h2>
+  <div class="film-card">
+    <div id="poster-film">
+      <img src="{{ vhs.poster_image }}" />
     </div>
+    <div id="film-info">
+      <h2>{{ vhs.title }}</h2>
+      <p>id film: {{ vhs.id_num }}</p>
+      <p>year: {{ vhs.year }}</p>
+      <p>age rating: {{ vhs.age_rating }}</p>
+      <p>count: {{ vhs.count }}</p>
+      <p>available: {{ vhs.available_quantity }}</p>
+      <p>issued: {{ vhs.issued_to_clients }}</p>
+    </div>
+    <div id="button-film">
+      <a class="button-all" href="/all_vhstapes">Back</a>
+      <a class="button-all" href="/vhs/{{ vhs.id_num }}/update">Update</a>
+      <a class="button-all" href="/vhs/{{ vhs.id_num }}/delete">Delete</a>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

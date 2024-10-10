@@ -1,39 +1,37 @@
-{% extends "base.html" %}
-
-{% block nav_class %} hide-nav {% endblock %}
-
-{% block title %} BlockbusterVHS {% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block nav_class %} hide-nav {% endblock %} {% block
+title %} BlockbusterVHS {% endblock %} {% block content %}
 <h1 id="home-title">BLOCKBUSTER VHS</h1>
 <div class="home-page">
-    <div id="home-page-info">
-        <p>Total VHS tapes in stock: {{total_movies_in_stock}}</p>
-        <p>Total films given away: {{ total_rentals }}</p>
-        <p>Total films: {{ total_films }}</p>
-        <p>Total clients: {{ total_clients }}</p>
+  <div id="home-page-info">
+    <p>Total VHS tapes in stock: {{total_movies_in_stock}}</p>
+    <p>Total films given away: {{ total_rentals }}</p>
+    <p>Total films: {{ total_films }}</p>
+    <p>Total clients: {{ total_clients }}</p>
+  </div>
+  <div id="home-page-actions">
+    <div id="home-vhs">
+      <a id="button-home" href="/all_vhstapes">All VHS</a>
+      <a id="button-home" href="/create_vhstape">Add VHS</a>
     </div>
-    <div id="home-page-actions">
-        <div id="home-vhs">
-            <a id="button-home" href="/all_vhstapes">All VHS</a>
-            <a id="button-home" href="/create_vhstape">Add VHS</a>
-        </div>
-        <div id="home-client">
-            <a id="button-home" href="/all_clients">All clients</a>
-            <a id="button-home" href="/create_client">Add client</a>
-        </div>
-        <div id="home-rentals">
-            <a id="button-home" href="/all_rentals">All rentals</a>
-            <a id="button-home" href="/create_rental">Add rental</a>
-        </div>
-        <div id="home-db">
-            <button id="button-home" onclick="DownloadMovies()">Download movies</button>
-            <button id="button-home" onclick="confirmClearDatabase()">Clear ALL databases</button>
-        </div>
-        <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
+    <div id="home-client">
+      <a id="button-home" href="/all_clients">All clients</a>
+      <a id="button-home" href="/create_client">Add client</a>
     </div>
-    <p class="author"><a target="_blank" href="https://github.com/EvansTrein">powered by Evans Trein's</p>
+    <div id="home-rentals">
+      <a id="button-home" href="/all_rentals">All rentals</a>
+      <a id="button-home" href="/create_rental">Add rental</a>
+    </div>
+    <div id="home-db">
+      <button id="button-home" onclick="DownloadMovies()">
+        Download movies
+      </button>
+      <button id="button-home" onclick="confirmClearDatabase()">
+        Clear ALL databases
+      </button>
+    </div>
+    <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
+  </div>
+  <p class="author"><a target="_blank" href="https://github.com/EvansTrein">powered by Evans Trein's</p>
 </div>
-
 
 {% endblock %}

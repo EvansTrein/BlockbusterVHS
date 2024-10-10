@@ -1,3 +1,6 @@
+# BEST NOT TO USE
+# a database record will be created
+
 # from unittest import TestCase
 # from flaskr.config import app
 

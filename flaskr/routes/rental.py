@@ -3,6 +3,7 @@ from flaskr.config import app, db
 from flaskr.db_models import VhsTape, Rental
 from flaskr.services.database_validation import validateCreateRental
 
+# connect routers from this file and name them as follows
 route_rental = Blueprint('route_rental', __name__)
 
 @app.route("/create_rental", methods=["GET", "POST"])

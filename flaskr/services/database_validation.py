@@ -3,6 +3,12 @@ from re import fullmatch
 
 
 def validateCreateVhs(data_in: dict) -> dict:
+    """
+    Validates data from the form for creating a new movie.
+    Returns a dictionary with 'error' and 'error_text' keys.
+    'error' is True if there are errors in the data, False otherwise.
+    'error_text' is a string with the text of the error message.
+    """
     answer = {"error": False, "error_text": ""}
     title = data_in["title"]
     year = data_in["year"]
@@ -10,7 +16,7 @@ def validateCreateVhs(data_in: dict) -> dict:
     count = data_in["count"]
     key_in = data_in["key_in"]
 
-    if key_in == "create" and VhsTape.query.filter(VhsTape.title.ilike(title)).first(): 
+    if key_in == "create" and VhsTape.query.filter(VhsTape.title.ilike(title)).first():
         answer["error"] = True
         answer["error_text"] = "There's already a movie like that"
         return answer
@@ -33,6 +39,10 @@ def validateCreateVhs(data_in: dict) -> dict:
 
 
 def validateUpdateVhs(data_in: dict) -> str:
+    """
+    Validates data from the form for updating a movie.
+    Returns a string with the text of the error message, or an empty string if there are no errors.
+    """
     error_text = ""
     obj_bd = data_in["obj_bd"]
     count = data_in["count"]
@@ -54,6 +64,12 @@ def validateUpdateVhs(data_in: dict) -> str:
 
 
 def validateCreateClient(data_in: dict) -> dict:
+    """
+    Validates data from the form for creating a client.
+    Returns a dictionary with "error" and "error_text" keys.
+    "error" key is True if there are errors and False otherwise.
+    "error_text" key contains the text of the error message.
+    """
     answer = {"error": False, "error_text": ""}
     name = data_in["name"]
     age = data_in["age"]
@@ -83,6 +99,11 @@ def validateCreateClient(data_in: dict) -> dict:
 
 
 def validateUpdateClient(data_in: dict) -> str:
+    """
+    Validates the data from the form to update the client,
+    uses the 'validateCreateClient' function for this purpose
+    Returns an error message. If there are no errors, an empty string is returned.
+    """
     error_text = ""
 
     is_vaild = validateCreateClient(data_in)
@@ -94,6 +115,14 @@ def validateUpdateClient(data_in: dict) -> str:
 
 
 def validateCreateRental(data_in: dict) -> dict:
+    """
+    Validates data from the form to create a rental,
+    checks if the client and the movie exist, if the movie is available,
+    if the client has already rented the movie, and if the client is old enough to rent the movie.
+    Returns a dictionary with 'error' and 'error_text' keys.
+    'error' is True if there are errors in the data, False otherwise.
+    'error_text' is a string with the text of the error message.
+    """
     answer = {"error": False, "error_text": ""}
 
     client_id = data_in["client_id"]
@@ -121,7 +150,7 @@ def validateCreateRental(data_in: dict) -> dict:
         answer["error"] = True
         answer["error_text"] = "Out of stock"
         return answer
-    elif vhs.age_rating in ('R', 'NC-17') and client.age < 18:
+    elif vhs.age_rating in ("R", "NC-17") and client.age < 18:
         answer["error"] = True
         answer["error_text"] = "The client does not pass the age limit of the movie"
         return answer

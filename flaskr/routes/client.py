@@ -1,13 +1,27 @@
 from flask import Blueprint, render_template, redirect, request, flash
 from flaskr.config import app, db
 from flaskr.db_models import Client, VhsTape, Rental
-from flaskr.services.database_validation import validateCreateClient, validateUpdateClient
+from flaskr.services.database_validation import (
+    validateCreateClient,
+    validateUpdateClient,
+)
 from .rental import create_rental
 
-route_client = Blueprint('route_client', __name__)
+# connect routers from this file and name them as follows
+route_client = Blueprint("route_client", __name__)
+
 
 @app.route("/create_client", methods=["GET", "POST"])
 def create_client():
+    """
+    Creates a client, given a name, age and phone number.
+
+    If the request method is POST, validates the input data, checks if the client exists and if the data is correct, creates a new client and commits the changes to the database.
+
+    If the request method is GET, renders a template to input the client data.
+
+    :return: Redirects to the same page if the request method is POST, renders a template if the request method is GET.
+    """
     if request.method == "POST":
         data_in = {
             "key_in": "create",
@@ -38,6 +52,14 @@ def create_client():
 
 @app.route("/all_clients")
 def all_clients():
+    """
+    Displays all clients with optional filters by age range.
+
+    If min_age and/or max_age are provided as query parameters, it filters the clients by that criteria and displays the total count of filtered clients.
+    Otherwise, all clients are displayed.
+
+    :return: rendered template with all clients and total count
+    """
     total = Client.query.count()
     min_age = request.args.get("min_age", type=int)
     max_age = request.args.get("max_age", type=int)
@@ -62,16 +84,30 @@ def all_clients():
     else:
         all_clients = Client.query.all()
         for client in all_clients:
-            count_rentals = Rental.query.filter(Rental.client_name == client.name).count()
+            count_rentals = Rental.query.filter(
+                Rental.client_name == client.name
+            ).count()
             client.rental_count = count_rentals
-        
+
         all_clients.sort(key=lambda x: x.rental_count, reverse=True)
 
-    return render_template("client/all_clients_page.html", all_clients=all_clients, **data)
+    return render_template(
+        "client/all_clients_page.html", all_clients=all_clients, **data
+    )
 
 
 @app.route("/client/<int:id>", methods=["GET", "POST"])
 def client(id):
+    """
+    Displays a client with its details and list of rented movies.
+
+    If the request is a POST, it creates a rental for the client with the provided movie ID.
+    It checks if the movie exists and if it is in stock.
+    If the movie is already rented by the client, it does not create a new rental.
+
+    :param id: the client id
+    :return: rendered template with the client and its rented movies
+    """
     client = Client.query.get(id)
     all_clients_films = Rental.query.filter(Rental.client_name == client.name).all()
     count_films = Rental.query.filter(Rental.client_name == client.name).count()
@@ -103,6 +139,16 @@ def client(id):
 
 @app.route("/client/<int:id>/update", methods=["GET", "POST"])
 def update_client(id):
+    """
+    Updates a client with given id, given a name, age and phone number.
+
+    If the request method is POST, validates the input data, checks if the client exists and if the data is correct, updates the client and commits the changes to the database.
+
+    If the request method is GET, renders a template to input the client data.
+
+    :param id: the client id
+    :return: Redirects to the same page if the request method is POST, renders a template if the request method is GET.
+    """
     client = Client.query.get(id)
     if request.method == "POST":
         data_in = {
@@ -132,6 +178,16 @@ def update_client(id):
 
 @app.route("/client/<int:id>/delete")
 def delete_client(id):
+    """
+    Deletes a client with given id.
+
+    If the request method is POST, renders a template to confirm the deletion.
+
+    If the request method is GET, checks if the client has any rentals, if not, deletes the client and commits the changes to the database.
+
+    :param id: the client id
+    :return: Redirects to the page with all clients if the request method is GET, renders a template if the request method is POST.
+    """
     client = Client.query.get_or_404(id)
     existing_rental = Rental.query.filter_by(client_name=client.name).first()
 

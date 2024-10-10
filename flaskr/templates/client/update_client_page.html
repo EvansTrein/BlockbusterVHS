@@ -1,17 +1,19 @@
-{% extends "base.html" %}
-
-
-{% block content %}
-<h1 id="home-title" style="margin-top: 25px;">Update client</h1>
-<h2 style="text-align: center;">Client name: {{ client.name }}</h2>
-<h3 style="text-align: center;">Enter new data</h3>
+{% extends "base.html" %} {% block content %}
+<h1 id="home-title" style="margin-top: 25px">Update client</h1>
+<h2 style="text-align: center">Client name: {{ client.name }}</h2>
+<h3 style="text-align: center">Enter new data</h3>
 <div class="vhs-update">
-    <form method="post">
-    <input type="number" name="age" id="age" value="{{ client.age }}"><br>
-    <input type="text" name="phone" id="phone" value="{{ client.phone }}"><br>
-    <input class="button-all" type="submit" value="save">
-    </form>
-    <a class="button-all" href="/all_clients">Back</a>
+  <form method="post">
+    <input type="number" name="age" id="age" value="{{ client.age }}" /><br />
+    <input
+      type="text"
+      name="phone"
+      id="phone"
+      value="{{ client.phone }}"
+    /><br />
+    <input class="button-all" type="submit" value="save" />
+  </form>
+  <a class="button-all" href="/all_clients">Back</a>
 </div>
 <div class="flash-error">{{ get_flashed_messages()[0] }}</div>
 {% endblock %}

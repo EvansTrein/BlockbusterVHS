@@ -1,33 +1,30 @@
-{% extends "base.html" %}
-
-
-{% block content %}
-<h1 id="home-title" style="margin-top: 25px;">All rentals: {{ total }}</h1>
-<button class="filter-button" style="margin: 20px auto;" onclick="document.querySelector('.search').style.display = 'block'; this.style.display = 'none';">
-    Show filters
+{% extends "base.html" %} {% block content %}
+<h1 id="home-title" style="margin-top: 25px">All rentals: {{ total }}</h1>
+<button
+  class="filter-button"
+  style="margin: 20px auto"
+  onclick="document.querySelector('.search').style.display = 'block'; this.style.display = 'none';"
+>
+  Show filters
 </button>
-<div class="search" style="margin: 20px auto;">
-    <form method="get">
-        <input type="text" name="client_name" placeholder="client name">
-        <input type="text" name="film_title" placeholder="film title">
-        <button type="submit">Search</button>
-    </form>
+<div class="search" style="margin: 20px auto">
+  <form method="get">
+    <input type="text" name="client_name" placeholder="client name" />
+    <input type="text" name="film_title" placeholder="film title" />
+    <button type="submit">Search</button>
+  </form>
 </div>
 
 {% if count %}
-    <p>filtered: {{ count }}</p>
-{% endif %}
-
-{% for rental in all_issued %}
-<h2 style="text-align: center;">Id number rental: {{ rental.id_link }}</h2>
+<p>filtered: {{ count }}</p>
+{% endif %} {% for rental in all_issued %}
+<h2 style="text-align: center">Id number rental: {{ rental.id_link }}</h2>
 <div class="rental-card">
-    <p>client: {{ rental.client_name }}</p>
-    <p>id client: {{ rental.client_id }}</p>
-    <p>film: {{ rental.title_vhs }}</p>
-    <p>id film: {{ rental.vhs_tape_id }}</p>
-    <p>date of issue: {{ rental.date_created }}</p>
-    <a class="button-all" href="/rental/{{ rental.id_link }}/delete">Returne</a>
+  <p>client: {{ rental.client_name }}</p>
+  <p>id client: {{ rental.client_id }}</p>
+  <p>film: {{ rental.title_vhs }}</p>
+  <p>id film: {{ rental.vhs_tape_id }}</p>
+  <p>date of issue: {{ rental.date_created }}</p>
+  <a class="button-all" href="/rental/{{ rental.id_link }}/delete">Returne</a>
 </div>
-{% endfor %}
-
-{% endblock %}
+{% endfor %} {% endblock %}

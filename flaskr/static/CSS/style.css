@@ -1,474 +1,485 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 html {
-    background-image: url("/static/images/fon.jpg");
-    background-size: 470px 300px;  
+  background-image: url("/static/images/fon.jpg");
+  background-size: 470px 300px;
 }
 
 body {
-    backdrop-filter: blur(5px);
-    font-family: 'Source Sans Pro', sans-serif;
-    z-index: -2;
-    margin: 0;
-    margin-top: 0;
+  backdrop-filter: blur(5px);
+  z-index: -2;
+  margin: 0;
+  margin-top: 0;
 }
 
 .main {
-    display: flex;
-    flex-direction: column;
-    background-color: grey;
-    width: 60%;
-    min-height: 96vh;
-    height: auto;
-    padding: 5px;
-    margin: 15px auto;
-    border-radius: 10px;
-    z-index: -1;
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+  width: 60%;
+  min-height: 96vh;
+  height: auto;
+  padding: 5px;
+  margin: 15px auto;
+  border-radius: 10px;
+  z-index: -1;
 }
 
 nav {
-    display: flex;
-    border: 3px solid black;
-    border-radius: 10px;
-    background-color: rgb(44, 52, 155);
-    flex-wrap: wrap;
-    position: sticky;
-    top: 0;
-    z-index: 4;
-    backdrop-filter: blur(10px);
+  display: flex;
+  border: 3px solid black;
+  border-radius: 10px;
+  background-color: rgb(44, 52, 155);
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  backdrop-filter: blur(10px);
 }
 
 nav a {
-    padding: 5px;
-    border: 2px solid black;
-    border-radius: 5px;
-    margin: 5px;
-    font-size: 25px;
-    color: black;
-    text-decoration: none;
-    text-align: center;
-    flex-grow: 1;
+  padding: 5px;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 5px;
+  font-size: 25px;
+  color: black;
+  text-decoration: none;
+  text-align: center;
+  flex-grow: 1;
 }
 
 nav a:hover {
-    background-color: aliceblue;
+  background-color: aliceblue;
 }
 
 .flash-error {
-    padding: 10px;
-    font-size: 20px;
-    color: rgb(134, 10, 10);
+  padding: 10px;
+  font-size: 20px;
+  color: rgb(134, 10, 10);
 }
 
-.all-flash-error{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px;
-    font-size: 30px;
-    background-color: white;
-    border: 5px solid black;
-    border-radius: 20px;
-    color: rgb(134, 10, 10);
-    opacity: 0;
-    animation: fade-out 6s;
+.all-flash-error {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  font-size: 30px;
+  background-color: white;
+  border: 5px solid black;
+  border-radius: 20px;
+  color: rgb(134, 10, 10);
+  opacity: 0;
+  animation: fade-out 6s;
 }
 
 @keyframes fade-out {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .home-page {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    z-index: 0;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  z-index: 0;
 }
 
 #home-title {
-    text-align: center;
-    font-size: 50px;
-    background: linear-gradient(90deg, rgb(209, 16, 48), rgb(47, 128, 204));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 1);
-    border-radius: 10px;
-    margin: 0 auto;
-    padding: 10px;
+  text-align: center;
+  font-size: 50px;
+  background: linear-gradient(90deg, rgb(209, 16, 48), rgb(47, 128, 204));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 1);
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .hide-nav {
-    display: none;
+  display: none;
 }
 
-@property --angle{
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
 }
 
 #home-page-info {
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin: 20px;
-    position: relative;
-    background: rgb(80, 79, 79);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 20px;
+  position: relative;
+  background: rgb(80, 79, 79);
 }
 
-#home-page-info::after, #home-page-info::before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
-    border-radius: 30px;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    z-index: -1;
-    padding: 10px;
-    animation: 3s spin linear infinite;
+#home-page-info::after,
+#home-page-info::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(
+    from var(--angle),
+    #ff4545,
+    #00ff99,
+    #006aff,
+    #ff0095,
+    #ff4545
+  );
+  border-radius: 30px;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 10px;
+  animation: 3s spin linear infinite;
 }
 
 #home-page-info::before {
-    filter: blur(1.5rem);
-    opacity: 0.5;
+  filter: blur(1.5rem);
+  opacity: 0.5;
 }
 
-@keyframes spin{
-    from{
-        --angle: 0deg;
-    }
-    to{
-        --angle: 360deg;
-    }
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
 }
 
 #home-page-info > p {
-    font-size: 40px;
-    text-align: center;
-    flex-grow: 1;
+  font-size: 40px;
+  text-align: center;
+  flex-grow: 1;
 }
 
-
-#home-page-actions{
-    display: flex;
-    justify-content: center;
-    padding: 15px;
+#home-page-actions {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
 }
 
 #home-vhs {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 #home-client {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 #home-rentals {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 #home-db {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 #button-home {
-    text-decoration: none;
-    text-align: center;
-    padding: 10px;
-    font-size: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 3px solid black;
-    border-radius: 5px;
-    outline: none;
-    background-color: rgb(44, 52, 155);
-    color: black;
-    margin: 5px;
+  text-decoration: none;
+  text-align: center;
+  padding: 10px;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 3px solid black;
+  border-radius: 5px;
+  outline: none;
+  background-color: rgb(44, 52, 155);
+  color: black;
+  margin: 5px;
 }
 
 #button-home:hover {
-    background-color: aliceblue;
-    box-shadow: 0 0 30px rgba(0, 0, 255, 1);
-    cursor: pointer;
+  background-color: aliceblue;
+  box-shadow: 0 0 30px rgba(0, 0, 255, 1);
+  cursor: pointer;
 }
 
 .all-vhs {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .search {
-    display: none;
+  display: none;
 }
 
 .filter-button {
-    width: 80px;
+  width: 80px;
 }
 
 .film-card {
-    border-radius: 10px;
-    background: rgb(80, 79, 79);
-    display: flex;
-    padding: 5px;
-    margin: 5px;
-    position: relative;
+  border-radius: 10px;
+  background: rgb(80, 79, 79);
+  display: flex;
+  padding: 5px;
+  margin: 5px;
+  position: relative;
 }
 
 #poster-film {
-    width: 30%;
+  width: 30%;
 }
 
 #poster-film > img {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
 }
 
 #film-info {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    text-align: center;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: center;
 }
 
 #film-info > p {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 #film-info > h2 {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 #button-film {
-    width: 20%;
-    display: flex;
-    flex-direction: column;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
 }
 
 #button-film > a {
-    margin: 5px;
-    flex-grow: 1;
-    font-size: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  margin: 5px;
+  flex-grow: 1;
+  font-size: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .button-all {
-    text-decoration: none;
-    background-color: rgb(44, 52, 155);
-    color: black;
-    border: 3px solid black;
-    border-radius: 5px;
+  text-decoration: none;
+  background-color: rgb(44, 52, 155);
+  color: black;
+  border: 3px solid black;
+  border-radius: 5px;
 }
 
 .button-all:hover {
-    background-color: aliceblue;
-    box-shadow: 0 0 30px rgba(0, 0, 255, 1);
+  background-color: aliceblue;
+  box-shadow: 0 0 30px rgba(0, 0, 255, 1);
 }
 
 .vhs-page {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .vhs-update {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    background: rgb(80, 79, 79);
-    flex-grow: 1;
-    width: 80%;
-    margin: 5px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background: rgb(80, 79, 79);
+  flex-grow: 1;
+  width: 80%;
+  margin: 5px auto;
 }
 
 .vhs-update > form {
-    text-align: center;
-    border: 2px solid black;
-    border-radius: 10px;
-    width: 30%;
-    padding: 5px;
-    margin: 10px;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 30%;
+  padding: 5px;
+  margin: 10px;
 }
 
 .vhs-update > form > input {
-    width: 90%;
-    margin: 5px;
-    border-radius: 5px;
+  width: 90%;
+  margin: 5px;
+  border-radius: 5px;
 }
 
 .vhs-update > a {
-    margin: 5px;
-    width: 15%;
-    text-decoration: none;
-    color: black;
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: rgb(44, 52, 155);
-    text-align: center;
+  margin: 5px;
+  width: 15%;
+  text-decoration: none;
+  color: black;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: rgb(44, 52, 155);
+  text-align: center;
 }
 
 .cliebt-card {
-    border-radius: 10px;
-    background: rgb(80, 79, 79);
-    display: flex;
-    padding: 5px;
-    margin: 5px;
-    position: relative;
+  border-radius: 10px;
+  background: rgb(80, 79, 79);
+  display: flex;
+  padding: 5px;
+  margin: 5px;
+  position: relative;
 }
 
 #client-info {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    text-align: center;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: center;
 }
 
 #client-info > p {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 #client-info > h2 {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 #client-button {
-    width: 20%;
-    display: flex;
-    flex-direction: column;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
 }
 
 #client-button > a {
-    margin: 5px;
-    flex-grow: 1;
-    font-size: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  margin: 5px;
+  flex-grow: 1;
+  font-size: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .client-films {
-    border-radius: 10px;
-    background: rgb(80, 79, 79);
-    padding: 5px;
-    margin: 5px;
-    display: flex;
-    flex-direction: column;
+  border-radius: 10px;
+  background: rgb(80, 79, 79);
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
 #client-add-film {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 #client-add-film > form > input {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 #client-all-films {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
 }
 
 #client-all-films > ul {
-    border: 2px solid black;
-    border-radius: 10px;
-    list-style: none;
-    width: 80%;
+  border: 2px solid black;
+  border-radius: 10px;
+  list-style: none;
+  width: 80%;
 }
 
 #client-all-films > ul > li {
-    margin: 10px;
+  margin: 10px;
 }
 
 #film-link {
-    font-size: 20;
-    color:  black;
-    margin-right: 30px;
+  font-size: 20;
+  color: black;
+  margin-right: 30px;
 }
 
 #film-link:hover {
-    color: orange;
+  color: orange;
 }
 
 .rental-card {
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    background: rgb(80, 79, 79);
-    display: flex;
-    margin: 5px;
-    align-items: center;
-    width: 80%;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background: rgb(80, 79, 79);
+  display: flex;
+  margin: 5px;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .rental-card > p {
-    font-size: 20px;
-    margin: 15px;
+  font-size: 20px;
+  margin: 15px;
 }
 
 .rental-card > a {
-    width: 20%;
-    text-align: center;
-    margin-bottom: 10px;
+  width: 20%;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .author {
-    text-align: center;
-    font-size: 25px;
-    animation: pulse 1.5s infinite;
+  text-align: center;
+  font-size: 25px;
+  animation: pulse 1.5s infinite;
 }
 
 .author a {
-    color: black;
-    text-shadow: 0 0 10px rgb(185, 7, 7), 0 0 20px rgb(185, 7, 7), 0 0 30px rgb(185, 7, 7);
-    padding: 5px;
+  color: black;
+  text-shadow: 0 0 10px rgb(185, 7, 7), 0 0 20px rgb(185, 7, 7),
+    0 0 30px rgb(185, 7, 7);
+  padding: 5px;
 }
 
 @keyframes pulse {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.1);
-      opacity: 0.8;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
+  0% {
+    transform: scale(1);
+    opacity: 1;
   }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
