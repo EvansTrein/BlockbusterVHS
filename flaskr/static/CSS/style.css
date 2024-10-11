@@ -63,7 +63,7 @@ nav a:hover {
 
 .all-flash-error {
   position: fixed;
-  top: 50%;
+  top: 0.4%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 10px;
@@ -74,6 +74,7 @@ nav a:hover {
   color: rgb(134, 10, 10);
   opacity: 0;
   animation: fade-out 6s;
+  z-index: 4;
 }
 
 @keyframes fade-out {
