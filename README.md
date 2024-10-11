@@ -1,3 +1,5 @@
+![EN](https://github.com/EvansTrein/BlockbusterVHS/blob/main/README.md) ![RU](https://github.com/EvansTrein/BlockbusterVHS/blob/main/RU.md)
+
 ![](./flaskr/static/images/home.png)
 
 ![](./flaskr/static/images/films.png)
