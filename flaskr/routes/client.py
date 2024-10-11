@@ -61,11 +61,16 @@ def all_clients():
     :return: rendered template with all clients and total count
     """
     total = Client.query.count()
+    name = request.args.get("name", type=str)
     min_age = request.args.get("min_age", type=int)
     max_age = request.args.get("max_age", type=int)
     data = {"total": total}
 
-    if min_age and max_age:
+    if name:
+        all_clients = Client.query.filter(Client.name.ilike(f'%{name}%')).all()
+        count = Client.query.filter(Client.name.ilike(f'%{name}%')).count()
+        data["count"] = count
+    elif min_age and max_age:
         all_clients = Client.query.filter(Client.age.between(min_age, max_age)).all()
         count = Client.query.filter(Client.age.between(min_age, max_age)).count()
         data["count"] = count
