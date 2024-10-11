@@ -57,4 +57,4 @@ We need to create a website where a movie rental store can keep track of custome
 
 You can clone the repository, activate the virtual environment, install the dependencies `pip install -r requirements.txt` and run the `app.py` file. The project uses python 3.12.1
 
-Or via docker, the image is available on the docker hub. To download, type `docker pull evanstrein/blockbuster`.
+Or via docker, the image is available on the docker hub. To download, type `docker pull evanstrein/blockbuster_vhs`.

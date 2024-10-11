@@ -57,4 +57,4 @@
 
 Можете клонировать репозиторий, активировать виртуальное окружение, установить зависимости `pip install -r requirements.txt` и запустить файл `app.py`. На проекте успользуется python 3.12.1
 
-Или через докер, образ есть на docker hub. Для скачивания введите `docker pull evanstrein/blockbuster`
+Или через докер, образ есть на docker hub. Для скачивания введите `docker pull evanstrein/blockbuster_vhs`
