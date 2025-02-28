@@ -1,0 +1,29 @@
+@use './vars';
+@use './reset';
+
+html {
+  line-height: vars.$mainLineHeight;
+  font-size: vars.$mainFontSize;
+  color: vars.$mainFontColor;
+  height: 100%;
+  @media screen and (max-width: vars.$desktopWidth) {
+    font-size: 16px;
+  }
+  @media screen and (max-width: vars.$tableWidth) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: vars.$phoneWidth) {
+    font-size: 14px;
+  }
+}
+
+body {
+  //   font-family: $mainFont;
+  font-size: vars.$mainFontSize;
+  font-weight: vars.$mainFontWeight;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  background-color: #4b4949;
+}
