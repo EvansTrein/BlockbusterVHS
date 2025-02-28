@@ -1,0 +1,33 @@
+@use "./../vars";
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  padding: 20px;
+  background-color: vars.$navBarColor;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+	a {
+    color: black; 
+
+    &:visited {
+      color: black;
+    }
+
+    &:active {
+      color: black;
+    }
+
+    &:hover {
+      color: green;
+    }
+  }
+}

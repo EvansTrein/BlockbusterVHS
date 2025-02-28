@@ -1,9 +1,13 @@
 <template>
-  <Header />
-  <main>
-    <router-view />
-  </main>
-  <Footer />
+  <div class="wapper">
+    <Header />
+    <main class="wrapper-content">
+      <div class="container">
+        <router-view />
+      </div>
+    </main>
+    <Footer />
+  </div>
 </template>
 
 <script setup lang="ts">
