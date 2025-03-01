@@ -14,7 +14,7 @@ type Config struct {
 }
 
 type HTTPServer struct {
-	Address string `env:"ADDRESS"`
+	Address string `env:"API_ADDRESS"`
 	Port    string `env:"API_PORT"`
 }
 
