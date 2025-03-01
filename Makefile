@@ -10,5 +10,11 @@ run:
 run-docker-compose:
 	docker compose --env-file configForDocker.env up --build -d
 
-# go-lint:
-# 	golangci-lint run
+go-lint:
+	cd apigolang && golangci-lint run ./... -c .golangci.yml
+
+go-memory-check:
+	fieldalignment ./...
+
+go-memory-fix:
+	fieldalignment -fix ./...

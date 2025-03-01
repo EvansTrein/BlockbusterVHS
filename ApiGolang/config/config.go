@@ -9,8 +9,8 @@ import (
 )
 
 type Config struct {
-	Env         string `env:"ENV" env-required:"true"`
-	HTTPServer  `env-prefix:"HTTP_"`
+	Env        string `env:"ENV" env-required:"true"`
+	HTTPServer `env-prefix:"HTTP_"`
 }
 
 type HTTPServer struct {

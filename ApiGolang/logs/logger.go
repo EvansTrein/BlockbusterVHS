@@ -81,7 +81,9 @@ func (h *CustomHandler) Handle(ctx context.Context, r slog.Record) error {
 
 	buf.Write([]byte("\n"))
 
-	h.output.Write(buf.Bytes())
+	if _, err := h.output.Write(buf.Bytes()); err != nil {
+		return err
+	}
 	return nil
 }
 
