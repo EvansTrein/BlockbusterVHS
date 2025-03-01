@@ -45,7 +45,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
   margin: 0 auto;
-  border: white solid 2px;
 }
 
 .wrapper-content {
@@ -54,7 +53,7 @@ body {
   min-height: 70vh;
   width: 80%;
   margin: 0 auto;
-  margin-top: 5rem; // nav bar fixed
+  margin-top: vars.$elementSpacing; // nav bar fixed
   outline: rgb(216, 36, 36) solid 2px; // !!debug!!
   border-radius: 20px;
   background-color: rgb(104, 103, 103); // !!debug!!
@@ -65,7 +64,6 @@ body {
   flex: 0 0 auto;
   margin: 0 auto;
   width: 100%;
-  outline: white solid 2px; // !!debug!!
   max-width: vars.$lgDesktopWidth;
   @media screen and (max-width: vars.$lgDesktopWidth) {
     padding: 0 16px;

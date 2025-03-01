@@ -3,8 +3,13 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
+	plugins: [vue()],
 	server: {
     port: 8010,
   },
-  plugins: [vue()],
+	resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
 })

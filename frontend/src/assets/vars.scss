@@ -2,7 +2,7 @@
 $mainFont: "Montserrat", Helvetica, Arial, sans-serif;
 
 // Size
-$mainFontColor: #101010;
+$mainFontColor: #000000;
 $mainFontSize: 18px;
 $mainFontWeight: 400;
 $mainLineHeight: 1.4;
@@ -16,4 +16,7 @@ $phoneWidth: 480px;
 $smPhoneWidth: 320px;
 
 // Main color
-$navBarColor: rgb(61, 62, 73);
+$greyLite: rgb(61, 62, 73);
+
+// Spacing
+$elementSpacing: 5rem;
