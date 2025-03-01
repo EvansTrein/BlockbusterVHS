@@ -29,8 +29,8 @@ func New(deps *HttpServerDeps) *HttpServer {
 	router := http.NewServeMux()
 
 	return &HttpServer{
-		conf: deps.HTTPServer,
-		log: deps.Logger,
+		conf:   deps.HTTPServer,
+		log:    deps.Logger,
 		router: router,
 	}
 }

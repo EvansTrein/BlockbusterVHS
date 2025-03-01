@@ -21,7 +21,7 @@ type ApiDeps struct {
 func New(deps *ApiDeps) *Api {
 	httpServer := server.New(&server.HttpServerDeps{
 		HTTPServer: &deps.HTTPServer,
-		Logger: deps.Logger,
+		Logger:     deps.Logger,
 	})
 
 	return &Api{
