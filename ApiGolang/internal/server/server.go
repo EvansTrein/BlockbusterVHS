@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/EvansTrein/BlockbusterVHS/config"
+	"github.com/EvansTrein/BlockbusterVHS/internal/films"
 )
 
 const (
@@ -27,6 +28,10 @@ type HttpServerDeps struct {
 
 func New(deps *HttpServerDeps) *HttpServer {
 	router := http.NewServeMux()
+
+	films.NewHandler(router, &films.HandlerFilmsDeps{
+		Logger: deps.Logger,
+	})
 
 	return &HttpServer{
 		conf:   deps.HTTPServer,

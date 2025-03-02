@@ -5,12 +5,14 @@ import (
 
 	"github.com/EvansTrein/BlockbusterVHS/config"
 	"github.com/EvansTrein/BlockbusterVHS/internal/server"
+	"github.com/EvansTrein/BlockbusterVHS/internal/storages/sqlite"
 )
 
 type Api struct {
 	conf   *config.Config
 	log    *slog.Logger
 	server *server.HttpServer
+	db *sqlite.SqliteDB
 }
 
 type ApiDeps struct {
@@ -19,6 +21,11 @@ type ApiDeps struct {
 }
 
 func New(deps *ApiDeps) *Api {
+	db, err := sqlite.New(deps.StoragePath, deps.Logger)
+	if err != nil {
+		panic(err)
+	}
+
 	httpServer := server.New(&server.HttpServerDeps{
 		HTTPServer: &deps.HTTPServer,
 		Logger:     deps.Logger,
@@ -28,6 +35,7 @@ func New(deps *ApiDeps) *Api {
 		conf:   deps.Config,
 		log:    deps.Logger,
 		server: httpServer,
+		db: db,
 	}
 }
 
@@ -45,6 +53,11 @@ func (a *Api) Stop() error {
 
 	if err := a.server.Stop(); err != nil {
 		a.log.Error("failed to stop HTTP server")
+		return err
+	}
+
+	if err := a.db.Close(); err != nil {
+		a.log.Error("failed to close the database connection")
 		return err
 	}
 

@@ -10,6 +10,7 @@ import (
 
 type Config struct {
 	Env        string `env:"ENV" env-required:"true"`
+	StoragePath string `env:"STORAGE_PATH" env-required:"true"`
 	HTTPServer `env-prefix:"HTTP_"`
 }
 
