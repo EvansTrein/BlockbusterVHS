@@ -12,7 +12,7 @@ type Api struct {
 	conf   *config.Config
 	log    *slog.Logger
 	server *server.HttpServer
-	db *sqlite.SqliteDB
+	db     *sqlite.SqliteDB
 }
 
 type ApiDeps struct {
@@ -29,13 +29,14 @@ func New(deps *ApiDeps) *Api {
 	httpServer := server.New(&server.HttpServerDeps{
 		HTTPServer: &deps.HTTPServer,
 		Logger:     deps.Logger,
+		SqliteDB:   db,
 	})
 
 	return &Api{
 		conf:   deps.Config,
 		log:    deps.Logger,
 		server: httpServer,
-		db: db,
+		db:     db,
 	}
 }
 

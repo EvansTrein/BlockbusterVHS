@@ -2,6 +2,7 @@ package sqlite
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"log/slog"
 
@@ -9,7 +10,7 @@ import (
 )
 
 type SqliteDB struct {
-	db  *sql.DB
+	DB  *sql.DB
 	log *slog.Logger
 }
 
@@ -26,19 +27,19 @@ func New(storagePath string, log *slog.Logger) (*SqliteDB, error) {
 	}
 
 	log.Info("database: connect to Postgres successfully")
-	return &SqliteDB{db: db, log: log}, nil
+	return &SqliteDB{DB: db, log: log}, nil
 }
 
 func (s *SqliteDB) Close() error {
 	s.log.Debug("database: stop started")
 
-	if s.db == nil {
-		return fmt.Errorf("database connection is already closed")
+	if s.DB == nil {
+		return errors.New("database connection is already closed")
 	}
 
-	s.db.Close()
+	s.DB.Close()
 
-	s.db = nil
+	s.DB = nil
 
 	s.log.Info("database: stop successful")
 	return nil
