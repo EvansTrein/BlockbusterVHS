@@ -1,10 +1,9 @@
 <template>
-  <div class="debug">
-		<h1>About page</h1>
-	</div>
+  <Form />
 </template>
 
 <script setup lang="ts">
+import Form from '../components/Form.vue';
 
 </script>
 

@@ -48,15 +48,14 @@ body {
 }
 
 .wrapper-content {
-  display: flex;
+	display: flex;
   flex-direction: column;
   min-height: 70vh;
   width: 80%;
   margin: 0 auto;
   margin-top: vars.$elementSpacing; // nav bar fixed
-  outline: rgb(216, 36, 36) solid 2px; // !!debug!!
-  border-radius: 20px;
-  background-color: rgb(104, 103, 103); // !!debug!!
+  // outline: vars.$debugOutline; 
+	// background-color: vars.$debugBackground;
 }
 
 .container {
@@ -80,4 +79,16 @@ body {
   @media screen and (max-width: vars.$phoneWidth) {
     max-width: vars.$smPhoneWidth;
   }
+}
+
+.debug {
+	background-color: vars.$debugBackground;
+	outline: vars.$debugOutline;
+	display: flex;
+	align-items: center;
+  justify-content: space-around;
+	
+	* {
+		outline: 4px solid rgb(0, 38, 255);
+	}
 }

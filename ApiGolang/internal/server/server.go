@@ -10,6 +10,7 @@ import (
 	"github.com/EvansTrein/BlockbusterVHS/internal/films"
 	"github.com/EvansTrein/BlockbusterVHS/internal/storages/sqlite"
 	"github.com/EvansTrein/BlockbusterVHS/internal/users"
+	"github.com/EvansTrein/BlockbusterVHS/pkg/middleware"
 )
 
 const (
@@ -67,7 +68,7 @@ func (s *HttpServer) Start() error {
 
 	s.server = &http.Server{
 		Addr:    s.conf.Address + ":" + s.conf.Port,
-		Handler: s.router,
+		Handler: middleware.CORS(s.router),
 	}
 
 	log.Info("HTTP server: successfully started")

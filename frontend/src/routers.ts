@@ -6,6 +6,9 @@ import {
 import Home from "./pages/home.vue";
 import NotFound from "./pages/notFound.vue";
 import About from "./pages/about.vue";
+import Films from "./pages/films.vue";
+import Clients from "./pages/clients.vue";
+import Rentals from "./pages/rentals.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -17,6 +20,21 @@ const routes: Array<RouteRecordRaw> = [
     path: "/about",
     name: "About",
     component: About,
+  },
+  {
+    path: "/films",
+    name: "Films",
+    component: Films,
+  },
+	{
+    path: "/clients",
+    name: "Clients",
+    component: Clients,
+  },
+	{
+    path: "/rentals",
+    name: "Rentals",
+    component: Rentals,
   },
   {
     path: "/:pathMatch(.*)*",
