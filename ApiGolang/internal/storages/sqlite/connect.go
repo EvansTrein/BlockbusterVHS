@@ -15,7 +15,7 @@ type SqliteDB struct {
 }
 
 func New(storagePath string, log *slog.Logger) (*SqliteDB, error) {
-	log.Debug("database: connection to Postgres started")
+	log.Debug("database: connection to SQLite started")
 
 	db, err := sql.Open("sqlite3", storagePath)
 	if err != nil {
@@ -26,7 +26,7 @@ func New(storagePath string, log *slog.Logger) (*SqliteDB, error) {
 		return nil, fmt.Errorf("failed to ping database: %w", err)
 	}
 
-	log.Info("database: connect to Postgres successfully")
+	log.Info("database: connect to SQLite successfully")
 	return &SqliteDB{DB: db, log: log}, nil
 }
 
