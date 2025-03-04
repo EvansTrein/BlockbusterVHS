@@ -1,10 +1,11 @@
 <template>
-	<a href="/" class="header__logo">
-		<img src="/blockbuster.svg" alt="logo">
-	</a>
-	<nav class="wrap header__menu">
+  <a href="/" class="header__logo">
+    <img src="/blockbuster.svg" alt="logo" />
+  </a>
+  <nav class="wrap header__menu">
     <ul class="header__menu-list">
-      <li class="header__menu-item"
+      <li
+        class="header__menu-item"
         v-for="link in links"
         :key="link.alias"
         :class="{ active: activeLink === link.alias }"

@@ -14,22 +14,21 @@
 }
 
 body {
-	font-family: vars.$mainFont;
-	font-size: vars.$mainFontSize;
-	color: vars.$mainFontColor;
-	line-height: vars.$mainLineHeight;
+  font-family: vars.$mainFont;
+  font-size: vars.$mainFontSize;
+  color: vars.$mainFontColor;
+  line-height: vars.$mainLineHeight;
 }
 
 // It contains the entire vue application.
 .container {
-	@include mixins.min-max(320px, 100%);
-	display: grid;
+  @include mixins.min-max(320px, 100%);
+  display: grid;
   grid-template-rows: auto 1fr auto; // header, main, footer
-	min-height: 100vh;
+  min-height: 100vh;
   margin: 0;
 }
 
 .wrap {
   @include mixins.min-max(320px, 1180px);
 }
-
