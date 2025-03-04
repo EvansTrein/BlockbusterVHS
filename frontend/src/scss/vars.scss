@@ -1,12 +1,10 @@
 // Font
 $mainFont: "Montserrat", Helvetica, Arial, sans-serif;
-
-// Size
 $mainFontColor: #000000;
 $mainFontSize: 18px;
-$mainFontWeight: 400;
-$mainLineHeight: 1.4;
+$mainLineHeight: 1.2;
 
+// Size
 $lgDesktopWidth: 1400px;
 $desktopWidth: 1280px;
 $smDesktopWidth: 1024px;
@@ -15,12 +13,11 @@ $smTableWidth: 640px;
 $phoneWidth: 480px;
 $smPhoneWidth: 320px;
 
-// Main color
-$greyLite: rgb(61, 62, 73);
-$orangeNavBar: rgb(204, 136, 9);
-
-// Spacing
-$elementSpacing: 5rem;
+// Colors
+$black: #000000;
+$greyLite: #3d3e49;
+$orangeNavBar: #cc8809;
+$blueLite: #343b4d;
 
 // Debug 
 $debugOutline: 2px solid red;

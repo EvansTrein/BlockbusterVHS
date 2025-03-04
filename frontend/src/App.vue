@@ -1,13 +1,13 @@
 <template>
-  <div class="wapper">
-    <Header />
-    <main class="wrapper-content">
-      <div class="container">
-        <router-view />
-      </div>
-    </main>
-    <Footer />
-  </div>
+	<header class="header">
+		<Header />
+	</header>
+  <main class="main-content">
+    <router-view />
+  </main>
+	<footer class="footer">
+		<Footer />
+	</footer>
 </template>
 
 <script setup lang="ts">

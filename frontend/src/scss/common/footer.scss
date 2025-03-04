@@ -1,0 +1,9 @@
+@use "./../vars.scss";
+
+.footer {
+  background-color: vars.$greyLite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	text-align: center;
+}

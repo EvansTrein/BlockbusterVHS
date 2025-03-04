@@ -1,6 +1,6 @@
 <template>
-  <div class="debug">
-		<h1>Fims page</h1>
+  <div>
+		<h1>Films page</h1>
 	</div>
 </template>
 

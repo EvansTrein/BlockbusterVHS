@@ -1,0 +1,35 @@
+@use "./reset";
+@use "./vars";
+@use "./mixins";
+@use "./common/common";
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("./../assets/fonts/Montserrat-Medium.eot");
+  src: url("./../assetsfonts/Montserrat-Medium.woff2") format("woff2"),
+    url("./../assetsfonts/Montserrat-Medium.woff") format("woff"),
+    url("./../assetsfonts/Montserrat-Medium.ttf") format("truetype");
+  font-style: normal;
+  font-display: auto;
+}
+
+body {
+	font-family: vars.$mainFont;
+	font-size: vars.$mainFontSize;
+	color: vars.$mainFontColor;
+	line-height: vars.$mainLineHeight;
+}
+
+// It contains the entire vue application.
+.container {
+	@include mixins.min-max(320px, 100%);
+	display: grid;
+  grid-template-rows: auto 1fr auto; // header, main, footer
+	min-height: 100vh;
+  margin: 0;
+}
+
+.wrap {
+  @include mixins.min-max(320px, 1180px);
+}
+

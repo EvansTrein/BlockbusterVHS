@@ -1,9 +1,10 @@
 <template>
-  <Form />
+  <div>
+		<h1>Client page</h1>
+	</div>
 </template>
 
 <script setup lang="ts">
-import Form from '../components/Form.vue';
 
 </script>
 

@@ -1,17 +1,18 @@
 <template>
-  <nav class="navbar">
-    <header class="container">
-      <ul class="navbar-content">
-        <li
-          v-for="link in links"
-          :key="link.alias"
-          :class="{ active: activeLink === link.alias }"
-          @click="setActiveLink(link.alias)"
-        >
-          <router-link :to="link.url">{{ link.title }}</router-link>
-        </li>
-      </ul>
-    </header>
+	<a href="/" class="header__logo">
+		<img src="/blockbuster.svg" alt="logo">
+	</a>
+	<nav class="wrap header__menu">
+    <ul class="header__menu-list">
+      <li class="header__menu-item"
+        v-for="link in links"
+        :key="link.alias"
+        :class="{ active: activeLink === link.alias }"
+        @click="setActiveLink(link.alias)"
+      >
+        <router-link :to="link.url">{{ link.title }}</router-link>
+      </li>
+    </ul>
   </nav>
 </template>
 
