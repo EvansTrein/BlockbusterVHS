@@ -6,10 +6,10 @@
         <h3>{{ param.title }}</h3>
         <p>Count: {{ param.count }}</p>
       </div>
-      <div class="dashboard__operations">
-        <div v-for="oper in operations" :key="oper.title" class="dashboard__operations-item">
-          <h3>{{ oper.title }}</h3>
-        </div>
+    </div>
+    <div class="dashboard__operations">
+      <div v-for="oper in operations" :key="oper.title" class="dashboard__operations-item">
+        <h3>{{ oper.title }}</h3>
       </div>
     </div>
   </div>

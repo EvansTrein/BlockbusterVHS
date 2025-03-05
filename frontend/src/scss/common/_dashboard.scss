@@ -1,0 +1,16 @@
+@use "./../vars.scss";
+@use "./../_mixins";
+
+.dashboard {
+	background-color: vars.$debugBackground;
+	display: flex;
+	justify-content: center;
+	
+	> * {
+		flex-grow: 1;
+		outline: vars.$debugOutline;
+		background-color: green;
+	}
+
+}
+
