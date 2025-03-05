@@ -3,13 +3,13 @@
     <h2 class="dashboard__title">Dashboard panel</h2>
     <div class="dashboard__parametrs">
       <div v-for="param in parameters" :key="param.title" class="dashboard__parametrs-item">
-        <h3>{{ param.title }}</h3>
-        <p>Count: {{ param.count }}</p>
+        <span>{{ param.title }}: </span>
+        <span>{{ param.count }}</span>
       </div>
     </div>
     <div class="dashboard__operations">
       <div v-for="oper in operations" :key="oper.title" class="dashboard__operations-item">
-        <h3>{{ oper.title }}</h3>
+        <h3 @click="alertFunc">{{ oper.title }}</h3>
       </div>
     </div>
   </div>
@@ -33,6 +33,11 @@ const operations = reactive<Operation[]>([
   { title: "Download movies", description: "", apiPath: "", method: "POST" },
   { title: "Clear All databases", description: "", apiPath: "", method: "DELETE" },
 ]);
+
+const alertFunc = () => {
+	alert("hello from alertFunc")
+}
+
 </script>
 
 <style scoped lang="scss"></style>

@@ -2,15 +2,44 @@
 @use "./../_mixins";
 
 .dashboard {
-	background-color: vars.$debugBackground;
-	display: flex;
-	justify-content: center;
-	
-	> * {
-		flex-grow: 1;
-		outline: vars.$debugOutline;
-		background-color: green;
-	}
+  background-color: vars.$debugBackground;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "title 		 title"
+    "parametrs operations";
 
+  > * {
+    outline: vars.$debugOutline;
+    // background-color: green;
+  }
+
+  &__title {
+    grid-area: title;
+    text-align: center;
+    padding: 5px;
+    font-size: vars.$dashboardFontSize;
+  }
+
+  &__parametrs {
+    grid-area: parametrs;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		> * {
+			margin: 5px;
+		}
+  }
+
+  &__operations {
+    grid-area: operations;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		> * {
+			margin: 5px;
+		}
+  }
 }
-
