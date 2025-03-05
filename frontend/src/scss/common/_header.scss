@@ -22,6 +22,7 @@
     object-fit: contain;
   }
 }
+
 @media (max-width: 1280px) {  // Styles for a window width of 1280 pixels or less
   .header__logo {							// I mean, up to 1280, the pixel will be hidden
     display: none;
