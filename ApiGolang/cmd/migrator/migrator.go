@@ -6,7 +6,8 @@ import (
 	"log"
 
 	"github.com/golang-migrate/migrate/v4"
-	_ "github.com/golang-migrate/migrate/v4/database/sqlite"
+	// _ "github.com/golang-migrate/migrate/v4/database/sqlite"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
@@ -24,7 +25,7 @@ func main() {
 		panic("the path of the file with migrations or mode migration or the path for database creation is not specified")
 	}
 
-	migrateDb, err := migrate.New("file://"+fileMigrationPath, "sqlite://"+pathDB)
+	migrateDb, err := migrate.New("file://"+fileMigrationPath, pathDB)
 	if err != nil {
 		panic(err)
 	}

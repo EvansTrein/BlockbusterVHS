@@ -25,9 +25,9 @@ func NewUsersRepo(deps *UsersRepoDeps) *UsersRepo {
 	}
 }
 
-func (u *UsersRepo) Create(ctx context.Context, data *RegisterRequest) (uint, error) {
+func (r *UsersRepo) Create(ctx context.Context, data *RegisterRequest) (uint, error) {
 	op := "Database: create user"
-	log := u.log.With(slog.String("operation", op))
+	log := r.log.With(slog.String("operation", op))
 	log.Debug("Create func call", "data", data)
 
 	query := `
@@ -35,7 +35,7 @@ func (u *UsersRepo) Create(ctx context.Context, data *RegisterRequest) (uint, er
 		VALUES (?, ?, ?, ?)
 	`
 
-	result, err := u.repo.DB.ExecContext(ctx, query, data.Name, data.Email, data.Phone, data.Password)
+	result, err := r.repo.DB.ExecContext(ctx, query, data.Name, data.Email, data.Phone, data.Password)
 	if err != nil {
 		if strings.Contains(err.Error(), "UNIQUE") {
 			log.Warn("failed to create a record in the database, mail already exists", "error", err)

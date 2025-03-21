@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"os"
+	"time"
 
 	"github.com/ilyakaznacheev/cleanenv"
 )
@@ -15,8 +16,12 @@ type Config struct {
 }
 
 type HTTPServer struct {
-	Address string `env:"API_ADDRESS"`
-	Port    string `env:"API_PORT"`
+	Address           string        `env:"API_ADDRESS"`
+	Port              string        `env:"API_PORT"`
+	ReadHeaderTimeout time.Duration `env:"READ_HEADER_TIMEOUT"`
+	ReadTimeout       time.Duration `env:"READ_TIMEOUT"`
+	WriteTimeout      time.Duration `env:"WRITE_TIMEOUT"`
+	IdleTimeout       time.Duration `env:"IDLE_TIMEOUT"`
 }
 
 func MustLoad() *Config {

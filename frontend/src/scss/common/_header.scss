@@ -6,7 +6,8 @@
   display: flex;
 }
 
-.header__logo {  // Styles for window width greater than 1280 pixels
+.header__logo {
+  // Styles for window width greater than 1280 pixels
   width: 90px;
   height: 60px;
   padding: 5px;
@@ -20,15 +21,17 @@
   }
 }
 
-@media (max-width: 1280px) {  // Styles for a window width of 1280 pixels or less
-  .header__logo {							// I mean, up to 1280, the pixel will be hidden
+@media (max-width: 1280px) {
+  // Styles for a window width of 1280 pixels or less
+  .header__logo {
+    // I mean, up to 1280, the pixel will be hidden
     display: none;
   }
 }
 
 .header__menu {
-	width: 80%;
-	margin: 0 auto;
+  width: 80%;
+  margin: 0 auto;
   &-list {
     display: flex;
     justify-content: space-around;
@@ -37,30 +40,39 @@
 
   &-item {
     margin: 10px 20px;
-		margin-top: 12px;
+    margin-top: 12px;
     background-color: transparent;
-		flex-grow: 1;
-		flex-shrink: 1;
-		flex-basis: 120px;
-    transition: background-color 0.3s ease;
-    @include mixins.btn(vars.$black, none, 15px, vars.$black, 25px);
-
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 120px;
+		transition-duration: 400ms;
+    @include mixins.btn(none, none, 10px, vars.$black, 25px);
+		
     a {
       display: block;
-			text-align: center;
+      text-align: center;
       width: 100%;
       height: 100%;
       color: vars.$black;
+      transition-duration: 800ms;
+      @include mixins.btn(vars.$black, none, 10px, vars.$black, 25px);
     }
 
+    a:hover {
+			border-radius: 10px;
+      transition-duration: 500ms;
+      background-color: vars.$orangeNavBar;
+    }
+		
     &.active {
+      border-radius: 10px;
       background-color: vars.$orangeNavBar;
     }
   }
 
-	@media (max-width: 1280px) {
-		&-item {
-			margin: 5px 5px
-		}
-	}
+  @media (max-width: 1280px) {
+    &-item {
+      margin: 5px 5px;
+    }
+  }
 }

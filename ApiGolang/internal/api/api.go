@@ -5,14 +5,14 @@ import (
 
 	"github.com/EvansTrein/BlockbusterVHS/config"
 	"github.com/EvansTrein/BlockbusterVHS/internal/server"
-	"github.com/EvansTrein/BlockbusterVHS/internal/storages/sqlite"
+	"github.com/EvansTrein/BlockbusterVHS/internal/storages/postgres"
 )
 
 type Api struct {
 	conf   *config.Config
 	log    *slog.Logger
 	server *server.HttpServer
-	db     *sqlite.SqliteDB
+	db     *postgres.PostgresDB
 }
 
 type ApiDeps struct {
@@ -21,7 +21,7 @@ type ApiDeps struct {
 }
 
 func New(deps *ApiDeps) *Api {
-	db, err := sqlite.New(deps.StoragePath, deps.Logger)
+	db, err := postgres.New(deps.StoragePath, deps.Logger)
 	if err != nil {
 		panic(err)
 	}
@@ -29,7 +29,7 @@ func New(deps *ApiDeps) *Api {
 	httpServer := server.New(&server.HttpServerDeps{
 		HTTPServer: &deps.HTTPServer,
 		Logger:     deps.Logger,
-		SqliteDB:   db,
+		PostgresDB: db,
 	})
 
 	return &Api{

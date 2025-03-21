@@ -1,7 +1,8 @@
 default: run
 .PHONY: run
 
-PATH_DB=./internal/storages/database.db
+# PATH_DB=sqlite://internal/storages/database.db
+PATH_DB=postgres://evans:evans@localhost:8012/postgres?sslmode=disable
 FILE_MIGRATIONS =./migrations
 
 # Vue.js

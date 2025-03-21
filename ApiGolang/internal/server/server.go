@@ -8,7 +8,7 @@ import (
 
 	"github.com/EvansTrein/BlockbusterVHS/config"
 	"github.com/EvansTrein/BlockbusterVHS/internal/films"
-	"github.com/EvansTrein/BlockbusterVHS/internal/storages/sqlite"
+	"github.com/EvansTrein/BlockbusterVHS/internal/storages/postgres"
 	"github.com/EvansTrein/BlockbusterVHS/internal/users"
 	"github.com/EvansTrein/BlockbusterVHS/pkg/middleware"
 )
@@ -27,16 +27,16 @@ type HttpServer struct {
 type HttpServerDeps struct {
 	*config.HTTPServer
 	*slog.Logger
-	*sqlite.SqliteDB
+	*postgres.PostgresDB
 }
 
 func New(deps *HttpServerDeps) *HttpServer {
 	router := http.NewServeMux()
 
 	// Repositories
-	repoUsers := users.NewUsersRepo(&users.UsersRepoDeps{
-		Logger:   deps.Logger,
-		SqliteDB: deps.SqliteDB,
+	repoUsers := users.NewUsersRepoPostgres(&users.UsersRepoPostgresDeps{
+		Logger:     deps.Logger,
+		PostgresDB: deps.PostgresDB,
 	})
 
 	// Services
