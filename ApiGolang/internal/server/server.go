@@ -67,8 +67,15 @@ func (s *HttpServer) Start() error {
 	log.Debug("HTTP server: started creating")
 
 	s.server = &http.Server{
-		Addr:    s.conf.Address + ":" + s.conf.Port,
-		Handler: middleware.CORS(s.router),
+		Addr: s.conf.Address + ":" + s.conf.Port,
+		Handler: middleware.ChainMiddleware(
+			middleware.Timeout(s.conf.WriteTimeout),
+			middleware.CORS,
+		)(s.router),
+		ReadHeaderTimeout: s.conf.ReadHeaderTimeout,
+		ReadTimeout:       s.conf.ReadTimeout,
+		WriteTimeout:      s.conf.WriteTimeout,
+		IdleTimeout:       s.conf.IdleTimeout,
 	}
 
 	log.Info("HTTP server: successfully started")

@@ -1,9 +1,9 @@
 package users
 
 type HandlerResponce struct {
-	Status  int    `json:"status"`
 	Message string `json:"message"`
 	Error   string `json:"error"`
+	Status  int    `json:"status"`
 }
 
 type RegisterRequest struct {
@@ -18,18 +18,18 @@ type ReqisterResponce struct {
 }
 
 type UpdateRequest struct {
-	ID       uint   `json:"id" validate:"required"`
 	Name     string `json:"name" validate:"required,min=2"`
 	Email    string `json:"email" validate:"required,email"`
-	Phone    string `json:"phone" validate:"required,e164"` // e164 formatted phone number
+	Phone    string `json:"phone" validate:"required,e164"`
 	Password string `json:"password" validate:"required,min=8"`
+	ID       uint   `json:"id" validate:"required"`
 }
 
 type UpdateResponce struct {
-	ID    uint   `json:"id"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
 	Phone string `json:"phone"`
+	ID    uint   `json:"id"`
 }
 
 type GetUserResponce struct {

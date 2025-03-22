@@ -28,6 +28,15 @@ go-memory-check:
 go-memory-fix:
 	cd apigolang && fieldalignment -fix ./...
 
+go-mock:
+	cd apigolang && go generate ./...
+
+go-cover:
+	cd apigolang && go test -cover ./...
+
+go-cover-html:
+	cd apigolang && go test -cover -coverprofile=coverage.out ./internal/users && go tool cover -html=coverage.out -o coverage.html
+
 
 
 run-docker-compose:

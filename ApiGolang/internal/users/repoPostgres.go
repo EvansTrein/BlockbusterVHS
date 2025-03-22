@@ -87,10 +87,39 @@ func (r *UsersRepoPostgres) Update(ctx context.Context, data *UpdateRequest) err
 	`
 
 	if _, err := r.repo.DB.Exec(ctx, query, data.Name, data.Email, data.Phone, data.Password, data.ID); err != nil {
+		if strings.Contains(err.Error(), "unique") {
+			log.Warn("failed to create a record in the database, mail already exists", "error", err.Error())
+			return ErrUserAlreadyExsist
+		}
 		log.Error("failed to update database record")
 		return err
 	}
 
 	log.Info("user successfully updated")
+	return nil
+}
+
+func (r *UsersRepoPostgres) GetUserData(ctx context.Context, id uint, data *GetUserResponce) error {
+	op := "Database: get user data"
+	log := r.log.With(slog.String("operation", op))
+	log.Debug("GetUserData func call", "data", data)
+
+	query := `
+		SELECT username, email, phone
+		FROM clients
+		WHERE id = $1;
+	`
+
+	if err := r.repo.DB.QueryRow(ctx, query, id).Scan(&data.Name, &data.Email, &data.Phone); err != nil {
+		log.Error("failed to retrieve data from the database", "error", err.Error())
+		return err
+	}
+
+	if data.Name == "" || data.Email == "" || data.Phone == "" {
+		log.Error("database query was executed but the data was not retrieved", "data", data)
+		return ErrNoDataUwser
+	}
+
+	log.Info("data successfully received")
 	return nil
 }
