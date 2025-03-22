@@ -11,7 +11,7 @@ run:
 
 # Golang
 go-run:
-	cd apigolang && go run cmd/main.go -config ./../configLocal.env
+	cd apigolang && go run cmd/main.go -config ./configLocal.env
 
 go-migrate-up:	
 	cd apigolang && go run cmd/migrator/migrator.go -mode up -storage-path $(PATH_DB) -migrations-path $(FILE_MIGRATIONS)
@@ -40,4 +40,4 @@ go-cover-html:
 
 
 run-docker-compose:
-	docker compose --env-file configForDocker.env up --build -d
+	docker compose --env-file ./apigolang/configForDocker.env up --build -d

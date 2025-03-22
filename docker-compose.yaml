@@ -1,6 +1,6 @@
 services:
   storage:
-      container_name: postgres
+      container_name: stor
       environment:
         POSTGRES_USER: ${POSTGRES_USER}
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -16,15 +16,15 @@ services:
       networks:
         - server_net
 
-  # api:
-  #   container_name: api
-  #   build: ./apiGolang
-  #   depends_on:
-  #     - storage
-  #   networks:
-  #     - server_net
-  #   ports:
-  #     - ${HTTP_API_PORT}:${HTTP_API_PORT}
+  api:
+    container_name: apigolang
+    build: ./apiGolang
+    depends_on:
+      - storage
+    networks:
+      - server_net
+    ports:
+      - ${HTTP_API_PORT}:${HTTP_API_PORT}
 
 volumes: 
   storage_vol: {}
