@@ -8,7 +8,7 @@ import (
 
 	"github.com/EvansTrein/BlockbusterVHS/config"
 	"github.com/EvansTrein/BlockbusterVHS/internal/api"
-	"github.com/EvansTrein/BlockbusterVHS/logs"
+	"github.com/EvansTrein/BlockbusterVHS/pkg/logs"
 )
 
 func main() {

@@ -1,9 +1,10 @@
 default: run
 .PHONY: run
 
-# PATH_DB=sqlite://internal/storages/database.db
-PATH_DB=postgres://evans:evans@localhost:8012/postgres?sslmode=disable
+PATH_DB=sqlite://internal/storages/database.db
+# PATH_DB=postgres://evans:evans@localhost:8012/postgres?sslmode=disable
 FILE_MIGRATIONS =./migrations
+MIGRATION_MODE=up
 
 # Vue.js
 run:
@@ -14,12 +15,12 @@ go-run:
 	cd apigolang && go run cmd/main.go -config ./configLocal.env
 
 go-migrate-up:	
-	cd apigolang && go run cmd/migrator/migrator.go -mode up -storage-path $(PATH_DB) -migrations-path $(FILE_MIGRATIONS)
+	cd apigolang && go run cmd/migrator/migrator.go -mode $(MIGRATION_MODE) -storage-path $(PATH_DB) -migrations-path $(FILE_MIGRATIONS)
 
 go-lint:
 	cd apigolang && golangci-lint run ./... -c .golangci.yml
 
-go-format:
+go-fmt:
 	cd apigolang && go fmt ./...
 
 go-memory-check:

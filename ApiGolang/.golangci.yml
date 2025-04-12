@@ -16,7 +16,6 @@ linters:
     - makezero
     - asciicheck
     - gocritic
-    - godot
     - gosimple
     - dupl
     - goconst

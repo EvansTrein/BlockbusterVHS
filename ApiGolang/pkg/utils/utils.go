@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
-	"log"
-	"net/http"
 	"strconv"
 	"strings"
 
@@ -18,20 +16,6 @@ func DecodeBody[customType any](body io.ReadCloser) (*customType, error) {
 		return &data, err
 	}
 	return &data, nil
-}
-
-func SendJsonResp(w http.ResponseWriter, status int, data any) {
-	jsonResponse, err := json.Marshal(data)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
-	if _, err := w.Write(jsonResponse); err != nil {
-		log.Printf("!!ATTENTION!! failed to write JSON response: %v", err)
-		return
-	}
 }
 
 func Hashing(s string) (string, error) {

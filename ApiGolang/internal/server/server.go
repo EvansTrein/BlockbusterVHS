@@ -7,9 +7,10 @@ import (
 	"time"
 
 	"github.com/EvansTrein/BlockbusterVHS/config"
-	"github.com/EvansTrein/BlockbusterVHS/internal/films"
-	"github.com/EvansTrein/BlockbusterVHS/internal/storages/postgres"
-	"github.com/EvansTrein/BlockbusterVHS/internal/users"
+	httpAdapter "github.com/EvansTrein/BlockbusterVHS/internal/adapters/http"
+	"github.com/EvansTrein/BlockbusterVHS/internal/adapters/repository/userRepo"
+	useCase "github.com/EvansTrein/BlockbusterVHS/internal/usecase"
+	"github.com/EvansTrein/BlockbusterVHS/pkg/db/sqlite"
 	"github.com/EvansTrein/BlockbusterVHS/pkg/middleware"
 )
 
@@ -27,33 +28,42 @@ type HttpServer struct {
 type HttpServerDeps struct {
 	*config.HTTPServer
 	*slog.Logger
-	*postgres.PostgresDB
+	*sqlite.SqliteDB
 }
 
 func New(deps *HttpServerDeps) *HttpServer {
 	router := http.NewServeMux()
 
-	// Repositories
-	repoUsers := users.NewUsersRepoPostgres(&users.UsersRepoPostgresDeps{
-		Logger:     deps.Logger,
-		PostgresDB: deps.PostgresDB,
+	// Initialize repository
+	repoUsers := userRepo.NewUsersRepo(&userRepo.UsersRepoDeps{
+		Logger:   deps.Logger,
+		SqliteDB: deps.SqliteDB,
 	})
 
-	// Services
-	serviceUsers := users.NewUsersService(&users.UsersServiceDeps{
-		Logger:     deps.Logger,
-		IUsersRepo: repoUsers,
+	// Initialize use case
+	userUC := useCase.NewUserUseCase(&useCase.UserUseCaseDeps{
+		Logger:          deps.Logger,
+		IUserRepository: repoUsers,
 	})
 
-	// Handlers
-	films.NewHandler(router, &films.HandlerFilmsDeps{
+	// Initialize handler
+	baseHandler := httpAdapter.NewBaseHandler(&httpAdapter.BaseHandlerDeps{
 		Logger: deps.Logger,
 	})
 
-	users.NewHandler(router, &users.HandlerUsersDeps{
-		Logger:        deps.Logger,
-		IUsersService: serviceUsers,
+	userHandler := httpAdapter.NewHandlerUser(&httpAdapter.HandlerUserDeps{
+		BaseHandler:  baseHandler,
+		IUserUseCase: userUC,
 	})
+
+	// Initialize Routers
+	activeHandlers := &ActiveHandlers{
+		HandlerUser: userHandler,
+	}
+
+	activeMiddlewares := &ActiveMiddlewares{}
+
+	InitRouters(router, activeHandlers, activeMiddlewares)
 
 	return &HttpServer{
 		conf:   deps.HTTPServer,
@@ -66,11 +76,16 @@ func (s *HttpServer) Start() error {
 	log := s.log.With(slog.String("Address", s.conf.Address+":"+s.conf.Port))
 	log.Debug("HTTP server: started creating")
 
+	LoggerHTTP := middleware.NewMiddlewareLogging(&middleware.MiddlewareLoggingDeps{
+		Logger: s.log,
+	})
+
 	s.server = &http.Server{
 		Addr: s.conf.Address + ":" + s.conf.Port,
 		Handler: middleware.ChainMiddleware(
 			middleware.Timeout(s.conf.WriteTimeout),
 			middleware.CORS,
+			LoggerHTTP.HandlersLog(),
 		)(s.router),
 		ReadHeaderTimeout: s.conf.ReadHeaderTimeout,
 		ReadTimeout:       s.conf.ReadTimeout,
