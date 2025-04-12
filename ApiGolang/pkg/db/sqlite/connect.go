@@ -10,8 +10,8 @@ import (
 )
 
 type SqliteDB struct {
-	DB  *sql.DB
-	log *slog.Logger
+	*sql.DB
+	*slog.Logger
 }
 
 func New(storagePath string, log *slog.Logger) (*SqliteDB, error) {
@@ -27,11 +27,11 @@ func New(storagePath string, log *slog.Logger) (*SqliteDB, error) {
 	}
 
 	log.Info("database: connect to SQLite successfully")
-	return &SqliteDB{DB: db, log: log}, nil
+	return &SqliteDB{DB: db, Logger: log}, nil
 }
 
 func (s *SqliteDB) Close() error {
-	s.log.Debug("database: stop started")
+	s.Logger.Debug("database: stop started")
 
 	if s.DB == nil {
 		return errors.New("database connection is already closed")
@@ -41,6 +41,6 @@ func (s *SqliteDB) Close() error {
 
 	s.DB = nil
 
-	s.log.Info("database: stop successful")
+	s.Logger.Info("database: stop successful")
 	return nil
 }

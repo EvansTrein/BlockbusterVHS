@@ -41,7 +41,7 @@ func (r *UsersRepo) Create(ctx context.Context, data *dto.UserCreateRequest) (in
 		VALUES (?, ?, ?, ?)
 	`
 
-	result, err := r.db.DB.ExecContext(ctx, query, data.Name, data.Email, data.Phone)
+	result, err := r.db.ExecContext(ctx, query, data.Name, data.Email, data.Phone)
 	if err != nil {
 		if strings.Contains(err.Error(), "UNIQUE") {
 			log.Warn("failed to create a record in the database, mail already exists", "error", err)
@@ -76,7 +76,7 @@ func (r *UsersRepo) Find(ctx context.Context, param *dto.UserRequest) (*entity.U
 		WHERE email = ?
 		`, tableName)
 
-		if err := r.db.DB.QueryRowContext(ctx, query, param.Email).Scan(&user.ID, &user.Name, &user.Email); err != nil {
+		if err := r.db.QueryRowContext(ctx, query, param.Email).Scan(&user.ID, &user.Name, &user.Email); err != nil {
 			if strings.Contains(err.Error(), "no rows") {
 				log.Warn("user not found")
 				return nil, myErr.ErrUserNotFound
@@ -91,7 +91,7 @@ func (r *UsersRepo) Find(ctx context.Context, param *dto.UserRequest) (*entity.U
 		WHERE id = ?
 		`, tableName)
 
-		if err := r.db.DB.QueryRowContext(ctx, query, param.ID).Scan(&user.ID, &user.Name, &user.Email); err != nil {
+		if err := r.db.QueryRowContext(ctx, query, param.ID).Scan(&user.ID, &user.Name, &user.Email); err != nil {
 			if strings.Contains(err.Error(), "no rows") {
 				log.Warn("user not found")
 				return nil, myErr.ErrUserNotFound
@@ -101,7 +101,7 @@ func (r *UsersRepo) Find(ctx context.Context, param *dto.UserRequest) (*entity.U
 		}
 	default:
 		log.Error("incorrect user search mode")
-		return nil, myErr.ErrModeSearch
+		return nil, myErr.ErrUserModeSearch
 	}
 
 	log.Info("user successfully found")
