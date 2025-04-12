@@ -1,7 +1,7 @@
 default: run
 .PHONY: run
 
-PATH_DB=sqlite://internal/storages/database.db
+PATH_DB=sqlite://database/database.db
 # PATH_DB=postgres://evans:evans@localhost:8012/postgres?sslmode=disable
 FILE_MIGRATIONS =./migrations
 MIGRATION_MODE=up
